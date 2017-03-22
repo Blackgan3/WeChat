@@ -93,22 +93,24 @@ router.post('/login', function(req, res, next) {
       });
   })
 });
-/*
 
-//发微博
+
+//发消息，然后存入到数据库中
 router.post('/postmsg', function(req, res, next) {
   //处理发送的微博
   var msg = new Message({
     username:req.session.user.username,
-    content:req.body.content,
+    content:req.body.msg,
     publishTime:new Date()
   })
   msg.save(function (error) {
     if (!error) {
       console.log('发送成功');
-      res.redirect('/');
+      res.send({status:200,msg:"信息保存成功"});
+    }else{
+      res.send({status:8000,msg:"信息保存失败"});
     }
   })
-});*/
+});
 
 module.exports = router;

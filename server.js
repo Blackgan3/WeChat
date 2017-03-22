@@ -12,8 +12,7 @@ var express = require('express'),
     routes = require('./routes/index'),
    /* models = require('./models');
     Users  = models.Users;*/
-    //导入设置好的路由
-
+    //导入设置好的数据模型
     users = [];
 
 // app.use('/', express.static(__dirname + '/www'));
@@ -77,6 +76,23 @@ io.sockets.on('connection', function(socket) {
     socket.on('postMsg', function(msg, color) {
         socket.broadcast.emit('newMsg', socket.nickname, msg, color);
     });
+
+     //new message get
+    socket.on('saveMsg', function(msg, color) {
+        socket.broadcast.emit('newMsg', socket.nickname, msg, color);
+       /* var msg = new Message({
+            username:req.session.user.username,
+            content:req.body.content,
+            publishTime:new Date()
+        })
+        msg.save(function (error) {
+            if (!error) {
+              console.log('发送成功');
+              res.redirect('/');
+            }
+        })*/
+    });
+
     //new image get
     socket.on('img', function(imgData, color) {
         socket.broadcast.emit('newImg', socket.nickname, imgData, color);

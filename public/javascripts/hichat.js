@@ -5,7 +5,7 @@
  *view on GitHub:https://github.com/wayou/HiChat
  *see it in action:http://hichat.herokuapp.com/
  */
-var Message = require('../../models/message.js');
+
 window.onload = function() {
     var hichat = new HiChat();
     hichat.init();
@@ -66,6 +66,21 @@ HiChat.prototype = {
             if (msg.trim().length != 0) {
                 that.socket.emit('postMsg', msg, color);
                 that._displayNewMsg('我', msg, color);
+                //将发送的信息存入数据库
+                $.ajax({
+                    type:'post',
+                    dataType:'json',
+                    url:'/postMsg',
+                    data:{
+                        msg:msg,
+                    },
+                    success:function(data){
+                        console.log(data.msg);
+                    },
+                    error:  function(e){
+                        alert(e);
+                    }
+                });
                 return;
             };
         }, false);
