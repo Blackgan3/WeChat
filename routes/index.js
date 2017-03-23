@@ -73,7 +73,6 @@ router.get('/login', function(req, res, next) {
 router.post('/login', function(req, res, next) {
   //判断用户名是否存在
   User.findOne({username:req.body.username},function (error,user) {
-      console.log("start")
       if (!user) {
         //用户名不存在
         error = "用户名不存在,请先去注册";
@@ -112,5 +111,24 @@ router.post('/postmsg', function(req, res, next) {
     }
   })
 });
+//获取到当前用户列表
+router.get('/getOnLineUser',function(req,res,next){
+    User.find({},function(error,user){
+      if(error){
+        res.send({
+          status:8000,
+          msg   :"查询用户列表失败"
+        });
+      }else{
+        res.send(user);
+      }
+    });
+});
+
+//保存好友进入好友表中，包括同意了别人的请求以及别人同意了我的好友请求
+router.get('/saveFriend',function(req,res.next){
+
+});
+//发送好友请求，将好友请求写进对方的数据库中？？？？？
 
 module.exports = router;

@@ -41,7 +41,6 @@ app.use(function(req,res,next){
     res.locals.success = req.session.success;
     delete req.session.success;
     //用户登录后，将用户的信息存入locals，用于模板引擎；
-    console.log(req.session);
    /* if(req.session.user){
         res.locals.user = req.sessoin.user;
     }*/
@@ -54,15 +53,10 @@ app.use('/', routes);
 io.sockets.on('connection', function(socket) {
     //new user login
     socket.on('login', function(nickname) {
-      /*  if (users.indexOf(nickname) > -1) {
-            socket.emit('nickExisted');
-        } else {*/
-            //socket.userIndex = users.length;
-            socket.nickname = nickname;
-            users.push(nickname);
-            socket.emit('loginSuccess');
-            io.sockets.emit('system', nickname, users.length, 'login');
-      /*  };*/
+        socket.nickname = nickname;
+        users.push(nickname);
+        socket.emit('loginSuccess');
+        io.sockets.emit('system', nickname, users.length, 'login');
     });
     //user leaves
     socket.on('disconnect', function() {
@@ -80,22 +74,16 @@ io.sockets.on('connection', function(socket) {
      //new message get
     socket.on('saveMsg', function(msg, color) {
         socket.broadcast.emit('newMsg', socket.nickname, msg, color);
-       /* var msg = new Message({
-            username:req.session.user.username,
-            content:req.body.content,
-            publishTime:new Date()
-        })
-        msg.save(function (error) {
-            if (!error) {
-              console.log('发送成功');
-              res.redirect('/');
-            }
-        })*/
     });
 
     //new image get
     socket.on('img', function(imgData, color) {
         socket.broadcast.emit('newImg', socket.nickname, imgData, color);
+    });
+    //去用户列表请求数据渲染出当前用户列表中的用户
+    socket.on('onLineUser',function(){
+        socket.broadcast.emit('addUser');
+        socket.emit('addUser');
     });
 });
 

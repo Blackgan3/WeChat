@@ -19,23 +19,16 @@ HiChat.prototype = {
         this.socket = io.connect();
         //当前进入主页,进行socket.io连接
         this.socket.on('connect', function() {
-           /* document.getElementById('info').textContent = '请输入你的昵称';
-            document.getElementById('nickWrapper').style.display = 'block';
-            document.getElementById('nicknameInput').focus();*/
-
            document.getElementById('loginWrapper').style.display = 'block';
             that.socket.emit('login', "xuegan");
-
         });
-       /* this.socket.on('nickExisted', function() {
-            document.getElementById('info').textContent = '该昵称已经存在，请重新输入一个';
-        });*/
 
         //服务器端访问成功后执行
         this.socket.on('loginSuccess', function() {
-            // document.title = '十影 | ' + document.getElementById('nicknameInput').value;
             document.getElementById('loginWrapper').style.display = 'none';
             document.getElementById('messageInput').focus();
+             //登录成功后进行渲染当前用户列表中的用户
+            that.socket.emit('onLineUser');
         });
 
         this.socket.on('error', function(err) {
@@ -45,16 +38,23 @@ HiChat.prototype = {
                 document.getElementById('info').textContent = '!fail to connect :(';
             }
         });
+        //系统消息
         this.socket.on('system', function(nickName, userCount, type) {
             var msg = nickName + (type == 'login' ? ' 进入聊天室' : ' 离开聊天室');
             that._displayNewMsg('系统消息 ', msg, 'red');
             document.getElementById('status').textContent = userCount + (userCount > 1 ? ' 名用户' : ' 名用户') + ' 当前在线';
         });
+        //发送消息
         this.socket.on('newMsg', function(user, msg, color) {
             that._displayNewMsg(user, msg, color);
         });
+        //发送图片
         this.socket.on('newImg', function(user, img, color) {
             that._displayImage(user, img, color);
+        });
+        //重新渲染当前在线用户
+        this.socket.on('addUser',function(){
+            that._addUserList();
         });
         //发送消息按钮绑定事件
         document.getElementById('sendBtn').addEventListener('click', function() {
@@ -127,12 +127,20 @@ HiChat.prototype = {
                 emojiwrapper.style.display = 'none';
             };
         });
+        //事件委托代理
         document.getElementById('emojiWrapper').addEventListener('click', function(e) {
             var target = e.target;
             if (target.nodeName.toLowerCase() == 'img') {
                 var messageInput = document.getElementById('messageInput');
                 messageInput.focus();
                 messageInput.value = messageInput.value + '[emoji:' + target.title + ']';
+            };
+        }, false);
+        //给每一个用户列表绑定点击事件
+        document.getElementById('userListWrapper').addEventListener('click', function(e) {
+            var target = e.target;
+            if (target.nodeName.toLowerCase() == 'li') {
+                alert(target.innerHTML);
             };
         }, false);
     },
@@ -182,5 +190,31 @@ HiChat.prototype = {
             };
         };
         return result;
+    },
+    //添加用户列表
+    _addUserList:function(){
+        var that = this;
+        $.ajax({
+            type:'get',
+            dataType:'json',
+            url:'/getOnLineUser',
+            success:function(data){
+                 console.log(data);
+                 //获取到用户列表之后进行渲染
+                 that._userList(data);
+                },
+            error:  function(e){
+                alert(e);
+            }
+        });
+    },
+    //渲染当前用户列表
+    _userList:function(data){
+        var str = '';
+        for(var i=0;i<data.length;i++){
+            str+='<li style="cursor:pointer;">'+data[i].username+'</li>';
+        }
+        $('.onLineUserList').append(str);
+
     }
 };

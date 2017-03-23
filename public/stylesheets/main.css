@@ -3,6 +3,20 @@ html, body {
     background-color: #efefef;
     font-family: sans-serif;
 }
+/*好友列表部分样式*/
+.friendListBox{
+    float: left;
+    margin-left : 310px;
+    width: 150px;
+    height:200px;
+}
+.friendList{
+    width: 150px;
+    height:200px;
+    background:red;
+}
+/*好友列表部分结束*/
+/*中间信息部分样式*/
 .wrapper {
     width: 500px;
     height: 640px;
@@ -10,6 +24,7 @@ html, body {
     margin: 0 auto;
     background-color: #ddd;
 }
+
 #loginWrapper {
     position: fixed;
     top: 0;
