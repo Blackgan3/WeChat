@@ -20,7 +20,7 @@ HiChat.prototype = {
         //当前进入主页,进行socket.io连接
         this.socket.on('connect', function() {
            document.getElementById('loginWrapper').style.display = 'block';
-            that.socket.emit('login', "xuegan");
+            that.socket.emit('login', USERNAME);   
         });
 
         //服务器端访问成功后执行
@@ -56,6 +56,17 @@ HiChat.prototype = {
         this.socket.on('addUser',function(){
             that._addUserList();
         });
+
+        //处理服务器端发送过来的好友请求
+        this.socket.on('addFriReq',function(toOne,fromOne){
+            var toOne   = toOne,
+                fromOne = fromOne;
+            if(toOne=='xuegan'){
+                alert(fromOne+'请求添加你为好友');
+            }
+        });
+
+
         //发送消息按钮绑定事件
         document.getElementById('sendBtn').addEventListener('click', function() {
             var messageInput = document.getElementById('messageInput'),
@@ -141,6 +152,8 @@ HiChat.prototype = {
             var target = e.target;
             if (target.nodeName.toLowerCase() == 'li') {
                 alert(target.innerHTML);
+                //向特定的好友发送好友请求
+                that.socket.emit('sendFriendReq',target.innerHTML,'xuegan');
             };
         }, false);
     },

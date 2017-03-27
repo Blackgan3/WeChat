@@ -9,7 +9,7 @@ var express = require('express'),
     io = require('socket.io').listen(server),
     //导入express-session中间件,用于处理session
     session = require('express-session'),
-    routes = require('./routes/index'),
+    routes  = require('./routes/index'),
    /* models = require('./models');
     Users  = models.Users;*/
     //导入设置好的数据模型
@@ -66,17 +66,17 @@ io.sockets.on('connection', function(socket) {
             socket.broadcast.emit('system', socket.nickname, users.length, 'logout');
         }
     });
-    //new message get
+    //new Message get
     socket.on('postMsg', function(msg, color) {
         socket.broadcast.emit('newMsg', socket.nickname, msg, color);
     });
 
-     //new message get
+    //处理新发送来的信息
     socket.on('saveMsg', function(msg, color) {
         socket.broadcast.emit('newMsg', socket.nickname, msg, color);
     });
 
-    //new image get
+    //处理新发送来的图片
     socket.on('img', function(imgData, color) {
         socket.broadcast.emit('newImg', socket.nickname, imgData, color);
     });
@@ -85,9 +85,10 @@ io.sockets.on('connection', function(socket) {
         socket.broadcast.emit('addUser');
         socket.emit('addUser');
     });
+    //接收到发送好友的请求
+    socket.on('sendFriendReq',function(toOne,fromOne){
+        socket.broadcast.emit('addFriReq',toOne,fromOne);
+    });
 });
-
-
-
 
 module.exports = app;

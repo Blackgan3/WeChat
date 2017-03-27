@@ -55,7 +55,6 @@
             <p id="info">正在连接服务器...</p>
         </div>
         <script src="/socket.io/socket.io.js"></script>
-        <script src="/javascripts/hichat.js"></script>
         <script src="/javascripts/jquery.min.js"></script>
         <script>
         /**REMOVE ME IF YOU CANT ACCESS GOOGLE SERVICE**/
@@ -67,6 +66,11 @@
           ga('create', 'UA-46794744-7', 'hichat.herokuapp.com');
           ga('send', 'pageview');
         /**REMOVE END**/
-    </script>
+
+          var USERNAME = '<%=user.username%>';
+          console.log(USERNAME);
+        </script>
+        <script src="/javascripts/hichat.js"></script>
+
     </body>
 </html>

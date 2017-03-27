@@ -126,7 +126,7 @@ router.get('/getOnLineUser',function(req,res,next){
 });
 
 //保存好友进入好友表中，包括同意了别人的请求以及别人同意了我的好友请求
-router.get('/saveFriend',function(req,res.next){
+router.get('/saveFriend',function(req,res,next){
 
 });
 //发送好友请求，将好友请求写进对方的数据库中？？？？？
