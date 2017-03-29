@@ -49,7 +49,7 @@ app.use(function(req,res,next){
 
 });
 app.use('/', routes);
-
+// app.use('/friend',routes.friend);
 io.sockets.on('connection', function(socket) {
     //new user login
     socket.on('login', function(nickname) {
@@ -89,6 +89,14 @@ io.sockets.on('connection', function(socket) {
     socket.on('sendFriendReq',function(toOne,fromOne){
         socket.broadcast.emit('addFriReq',toOne,fromOne);
     });
+    //好友请求遭到拒绝
+    socket.on('refuseReq',function(toOne,fromOne){
+        socket.broadcast.emit('refuseReqAssign',toOne,fromOne);
+    });
+    //好友请求成功通过
+    socket.on('agreeReq',function(toOne,fromOne){
+        socket.broadcast.emit('agreeReqAssign',toOne,fromOne);
+    })
 });
 
 module.exports = app;

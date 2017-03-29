@@ -1,6 +1,7 @@
-var express = require('express');
-var User = require('../models/user.js')
-var Message = require('../models/message.js')
+var express     = require('express');
+var User        = require('../models/user.js');
+var Message     = require('../models/message.js');
+var FriendsList = require('../models/friendsList.js');
 var router = express();
 
 /* GET home page. */
@@ -28,8 +29,6 @@ router.post('/reg', function(req, res, next) {
   			//console.log('用户已经存在');
   			error = "该用户名已存在,请重新输入";
   		}else if (req.body.password !== req.body.repassword) {
-        console.log(req.body.password);
-        console.log(req.body.repassword);
   			error = "两次密码输入不一致";
         //console.log("两次密码输入不一致");
   		}
@@ -124,11 +123,36 @@ router.get('/getOnLineUser',function(req,res,next){
       }
     });
 });
-
-//保存好友进入好友表中，包括同意了别人的请求以及别人同意了我的好友请求
-router.get('/saveFriend',function(req,res,next){
-
+//--------------------好友处理方面----------------------------------
+//发送好友请求，将好友请求写进对方的数据库中
+router.post('/saveFriRelation', function(req, res, next) {
+  //res.render('login');
+  var fri = new FriendsList({
+      master:req.body.master,
+      friend:req.body.friend
+  });
+  var fri2= new FriendsList({
+      master:req.body.friend,
+      friend:req.body.master
+  });
+  fri.save(function(error){
+    if(error){
+      res.send({status:8000,msg:"添加好友关系失败"});
+    }else{
+      res.send({status:200,msg:"添加好友关系成功"});
+    } 
+  });
+  fri2.save();
 });
-//发送好友请求，将好友请求写进对方的数据库中？？？？？
+
+router.post('/getFriList',function(req,res,next){
+  FriendsList.find({master:req.body.master},function (error,friendsList) {
+      if (error) {
+        res.send({status:8000,msg:'查询用户好友列表失败'});
+      }else{
+        res.send(friendsList);
+      }
+  });
+});
 
 module.exports = router;

@@ -29,6 +29,7 @@ HiChat.prototype = {
             document.getElementById('messageInput').focus();
              //登录成功后进行渲染当前用户列表中的用户
             that.socket.emit('onLineUser');
+            that._addFriList(USERNAME);
         });
 
         this.socket.on('error', function(err) {
@@ -61,12 +62,37 @@ HiChat.prototype = {
         this.socket.on('addFriReq',function(toOne,fromOne){
             var toOne   = toOne,
                 fromOne = fromOne;
-            if(toOne=='xuegan'){
-                alert(fromOne+'请求添加你为好友');
+            if(toOne==USERNAME){
+                //alert(fromOne+'请求添加你为好友');
+                var confirmReq = confirm(fromOne+'请求添加你为好友');
+                if(confirmReq){
+                    //发送消息告诉fromOne同意了好友请求，同时将该好友添加至好友列表中
+                    that.socket.emit('agreeReq',toOne,fromOne);
+                }else{
+                    //发送消息告诉fromOne拒绝了好友请求
+                    that.socket.emit('refuseReq',toOne,fromOne);
+                }
             }
         });
-
-
+        //处理服务器发送过来的好友请求失败消息
+        this.socket.on('refuseReqAssign',function(toOne,fromOne){
+            if(fromOne == USERNAME){
+                alert(toOne+'拒绝了你的好友请求');
+                //好友请求被拒绝，不用去做任何反应
+            }
+        });
+        //处理服务器发送过来的好友请求成功消息
+        this.socket.on('agreeReqAssign',function(toOne,fromOne){
+            if(fromOne == USERNAME){
+                alert(toOne+'已经同意了你的好友请求');
+                //同意了好友请求后，将好友关系存储到好友列表中
+                $.post('/saveFriRelation',{master:fromOne,friend:toOne},
+                    function(data,status){
+                        alert(data.msg);
+                    }
+                );
+            }
+        });
         //发送消息按钮绑定事件
         document.getElementById('sendBtn').addEventListener('click', function() {
             var messageInput = document.getElementById('messageInput'),
@@ -151,9 +177,8 @@ HiChat.prototype = {
         document.getElementById('userListWrapper').addEventListener('click', function(e) {
             var target = e.target;
             if (target.nodeName.toLowerCase() == 'li') {
-                alert(target.innerHTML);
                 //向特定的好友发送好友请求
-                that.socket.emit('sendFriendReq',target.innerHTML,'xuegan');
+                that.socket.emit('sendFriendReq',target.innerHTML,USERNAME);
             };
         }, false);
     },
@@ -212,7 +237,7 @@ HiChat.prototype = {
             dataType:'json',
             url:'/getOnLineUser',
             success:function(data){
-                 console.log(data);
+                 //console.log(data);
                  //获取到用户列表之后进行渲染
                  that._userList(data);
                 },
@@ -223,11 +248,32 @@ HiChat.prototype = {
     },
     //渲染当前用户列表
     _userList:function(data){
+        $('.onLineUserList').empty();
         var str = '';
         for(var i=0;i<data.length;i++){
             str+='<li style="cursor:pointer;">'+data[i].username+'</li>';
         }
         $('.onLineUserList').append(str);
 
-    }
+    },
+    //当前用户的好友列表
+    _addFriList:function(USERNAME){
+        var that     = this,
+            USERNAME = USERNAME;
+        $.post('/getFriList',{master:USERNAME},
+            function(data,status){
+                console.log(data);
+                that._friList(data);
+            }
+        );
+    },
+    _friList:function(data){
+        $('.friendList').empty();
+        var str = '';
+        for(var i=0;i<data.length;i++){
+            str+='<li style="cursor:pointer;">'+data[i].friend+'</li>';
+        }
+        $('.friendList').append(str);
+    },
+    //渲染当前用户的好友列表
 };
