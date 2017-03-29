@@ -181,6 +181,14 @@ HiChat.prototype = {
                 that.socket.emit('sendFriendReq',target.innerHTML,USERNAME);
             };
         }, false);
+        //给好友列表中的每一个好友绑定点击事件
+        document.getElementById('friendListWrapper').addEventListener('click',function(e){
+            var target = e.target;
+            if(target.nodeName.toLowerCase() == 'li'){
+                //将进行一系列改变，来将聊天窗口变成单聊窗口
+                
+            }
+        });
     },
     _initialEmoji: function() {
         var emojiContainer = document.getElementById('emojiWrapper'),
