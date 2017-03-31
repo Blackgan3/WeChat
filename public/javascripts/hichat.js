@@ -186,7 +186,8 @@ HiChat.prototype = {
             var target = e.target;
             if(target.nodeName.toLowerCase() == 'li'){
                 //将进行一系列改变，来将聊天窗口变成单聊窗口
-                
+
+                that.socket.emit("privateChat",target.innerHTML,USERNAME);
             }
         });
     },
@@ -275,6 +276,7 @@ HiChat.prototype = {
             }
         );
     },
+     //渲染当前用户的好友列表
     _friList:function(data){
         $('.friendList').empty();
         var str = '';
@@ -283,5 +285,8 @@ HiChat.prototype = {
         }
         $('.friendList').append(str);
     },
-    //渲染当前用户的好友列表
+    _privateChat:function(data){
+        //这里进行私聊用户的一系列处理
+        
+    }
 };
