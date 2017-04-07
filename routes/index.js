@@ -86,9 +86,12 @@ router.post('/login', function(req, res, next) {
       req.session.success = '登录成功';
       //跳转到首页
       req.session.user = user;
-      res.render('chatHome',{
-        user:user,
-      });
+      if(user === 'weChatAdmin'){
+        //如果是管理员登录,就登录到管理员界面
+        res.render('adminHome',{user:user});
+      }else{
+        res.render('chatHome',{user:user});
+      }
   })
 });
 
