@@ -86,7 +86,7 @@ router.post('/login', function(req, res, next) {
       req.session.success = '登录成功';
       //跳转到首页
       req.session.user = user;
-      if(user === 'weChatAdmin'){
+      if(user.username === 'weChatAdmin'){
         //如果是管理员登录,就登录到管理员界面
         res.render('adminHome',{user:user});
       }else{
@@ -103,7 +103,7 @@ router.post('/postmsg', function(req, res, next) {
     username:req.session.user.username,
     content:req.body.msg,
     publishTime:new Date()
-  })
+  });
   msg.save(function (error) {
     if (!error) {
       console.log('发送成功');
@@ -159,3 +159,24 @@ router.post('/getFriList',function(req,res,next){
 });
 
 module.exports = router;
+
+
+//后台的一系列操作和跳转
+router.get('/friendList',function(req,res,next){
+    User.find({},function(error,user){
+        res.render('adminFriendList',{userList:user});
+    });
+});
+router.get('/adminHome',function(req,res,next){
+    res.render('adminHome');
+});
+//删除指定的用户
+router.post('/removeUser',function(req,res,next){
+    User.remove({username:req.body.username},function(err,doc){
+        if(err){
+            res.send({status:8000,msg:"删除用户失败"});
+        }else{
+            res.send({status:200, msg:"成功删除该用户"});
+        }
+    });
+});

@@ -11,7 +11,7 @@ mongoose.connect('mongodb://localhost/weibo',function (error) {
 var UserSchema = mongoose.Schema({
 	username: String,
 	password: String,
-})
+});
 
 //定义了一个User集合(表)
 var User = mongoose.model('User',UserSchema);//users
