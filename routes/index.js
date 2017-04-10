@@ -100,9 +100,10 @@ router.post('/login', function(req, res, next) {
 router.post('/postmsg', function(req, res, next) {
   //处理发送的微博
   var msg = new Message({
-    username:req.session.user.username,
-    content:req.body.msg,
-    publishTime:new Date()
+    username   :req.session.user.username,
+    content    :req.body.msg,
+    publishTime:new Date(),
+    sayto      :req.body.sayto
   });
   msg.save(function (error) {
     if (!error) {
@@ -112,6 +113,18 @@ router.post('/postmsg', function(req, res, next) {
       res.send({status:8000,msg:"信息保存失败"});
     }
   })
+});
+//获取到当前聊天信息列表
+router.post('/getChatMsg',function(req,res,next){
+    var sayto = req.body.sayto;
+    console.log(sayto);
+    Message.find({'sayto':sayto},function(error,Msg){
+      if(error){
+        res.send({status:8000,msg:"查询当前聊天信息失败"});
+      }else{
+        res.send({status:200, msg:Msg});
+      }
+    });
 });
 //获取到当前用户列表
 router.get('/getOnLineUser',function(req,res,next){

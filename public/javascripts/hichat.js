@@ -7,6 +7,7 @@
  */
 
 window.onload = function() {
+    var sayto  = '';
     var hichat = new HiChat();
     hichat.init();
 };
@@ -42,12 +43,12 @@ HiChat.prototype = {
         //系统消息
         this.socket.on('system', function(nickName, userCount, type) {
             var msg = nickName + (type == 'login' ? ' 进入聊天室' : ' 离开聊天室');
-            that._displayNewMsg('系统消息 ', msg, 'red');
+            that._displayNewMsg('系统消息 ', msg, 'red','all');
             document.getElementById('status').textContent = userCount + (userCount > 1 ? ' 名用户' : ' 名用户') + ' 当前在线';
         });
         //发送消息
         this.socket.on('newMsg', function(user, msg, color) {
-            that._displayNewMsg(user, msg, color);
+            that._displayNewMsg(user, msg, color,sayto);
         });
         //发送图片
         this.socket.on('newImg', function(user, img, color) {
@@ -102,14 +103,16 @@ HiChat.prototype = {
             messageInput.focus();
             if (msg.trim().length != 0) {
                 that.socket.emit('postMsg', msg, color);
-                that._displayNewMsg('我', msg, color);
+                that._displayNewMsg('我', color,sayto);
                 //将发送的信息存入数据库
+                console.log(sayto);
                 $.ajax({
                     type:'post',
                     dataType:'json',
                     url:'/postMsg',
                     data:{
-                        msg:msg,
+                        msg  :msg,
+                        sayto:sayto,
                     },
                     success:function(data){
                         console.log(data.msg);
@@ -134,13 +137,15 @@ HiChat.prototype = {
         document.getElementById('clearBtn').addEventListener('click', function() {
             document.getElementById('historyMsg').innerHTML = '';
         }, false);
+        //发送图片信息时绑定的事件
         document.getElementById('sendImage').addEventListener('change', function() {
             if (this.files.length != 0) {
                 var file = this.files[0],
                     reader = new FileReader(),
                     color = document.getElementById('colorStyle').value;
                 if (!reader) {
-                    that._displayNewMsg('系统消息', '!your browser doesn\'t support fileReader', 'red');
+                    //????这个地方需要再进行修改
+                    that._displayNewMsg('系统消息', '!your browser doesn\'t support fileReader', 'red','all');
                     this.value = '';
                     return;
                 };
@@ -186,8 +191,11 @@ HiChat.prototype = {
             var target = e.target;
             if(target.nodeName.toLowerCase() == 'li'){
                 //将进行一系列改变，来将聊天窗口变成单聊窗口
-
-                that.socket.emit("privateChat",target.innerHTML,USERNAME);
+                if(confirm("确定要私聊"+target.innerHTML+"吗？")){
+                    //进行私聊处理
+                    sayto = target.innerHTML;
+                    that._privateChat(target.innerHTML,USERNAME);
+                }
             }
         });
     },
@@ -199,20 +207,38 @@ HiChat.prototype = {
             emojiItem.src = '../content/emoji/' + i + '.gif';
             emojiItem.title = i;
             docFragment.appendChild(emojiItem);
-        };
+        }
         emojiContainer.appendChild(docFragment);
     },
     //根据发送的消息进行渲染界面    
-    _displayNewMsg: function(user, msg, color) {
+    _displayNewMsg: function(user,color,sayto) {
         var container = document.getElementById('historyMsg'),
-            msgToDisplay = document.createElement('p'),
             date = new Date().toTimeString().substr(0, 8),
             //determine whether the msg contains emoji
             msg = this._showEmoji(msg);
-        msgToDisplay.style.color = color || '#000';
-        msgToDisplay.innerHTML = user + '<span class="timespan">(' + date + '): </span>' + msg;
-        container.appendChild(msgToDisplay);
-        container.scrollTop = container.scrollHeight;
+        //去后台请求所有的聊天消息
+        $.ajax({
+            type    :'post',
+            dataType:'json',
+            url     :'/getChatMsg',
+            data    : {sayto:sayto},
+            success : function(data){
+                if(data.status===200){
+                    console.log(data.msg);
+                    container.innerHTML='';
+                    for(var i=0;i<data.msg.length;i++){
+                        var msgToDisplay = document.createElement('p');
+                        msgToDisplay.style.color = color || '#000';
+                        msgToDisplay.innerHTML = user + '<span class="timespan"></span>' + data.msg[i].content;
+                        container.appendChild(msgToDisplay);
+                        container.scrollTop = container.scrollHeight;
+                    }
+                }
+            },
+            error   : function(error){
+                alert(error);
+            }
+        });
     },
     _displayImage: function(user, imgData, color) {
         var container = document.getElementById('historyMsg'),
@@ -285,8 +311,11 @@ HiChat.prototype = {
         }
         $('.friendList').append(str);
     },
-    _privateChat:function(data){
-        //这里进行私聊用户的一系列处理
-        
+    //私聊用户的事件处理
+    _privateChat:function(sayto,principle){
+        //私聊用户，将聊天窗口的聊天对象的名字改变
+        document.getElementById('chatRoomTittle').innerHTML = sayto;
+        //改变聊天框中展示的内容
+        this._displayNewMsg(principle,'#000',sayto);
     }
 };
