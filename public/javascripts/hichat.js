@@ -102,8 +102,7 @@ HiChat.prototype = {
             messageInput.value = '';
             messageInput.focus();
             if (msg.trim().length != 0) {
-                that.socket.emit('postMsg', msg, color);
-                that._displayNewMsg('我', color,sayto);
+                
                 //将发送的信息存入数据库
                 console.log(sayto);
                 $.ajax({
@@ -115,7 +114,8 @@ HiChat.prototype = {
                         sayto:sayto,
                     },
                     success:function(data){
-                        console.log(data.msg);
+                        that.socket.emit('postMsg', msg, color);
+                        that._displayNewMsg(USERNAME, color,sayto);
                     },
                     error:  function(e){
                         alert(e);
