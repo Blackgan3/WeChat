@@ -46,10 +46,20 @@ HiChat.prototype = {
             that._displayNewMsg('系统消息 ', msg, 'red','all');
             document.getElementById('status').textContent = userCount + (userCount > 1 ? ' 名用户' : ' 名用户') + ' 当前在线';
         });
+
         //发送消息
-        this.socket.on('newMsg', function(user, msg, color) {
-            that._displayNewMsg(user, msg, color,sayto);
+        this.socket.on('newMsg', function(msg, color, Afromto,Asayto) {
+            //判断私聊对象是否是当前客户端如果是则进入处理流程
+            console.log(Asayto,USERNAME); 
+            if(Asayto == USERNAME){
+                //判断当前客户端聊天私聊窗口是否是发来消息的用户,如果是，则更新当前聊天窗口的信息
+                if(sayto==Afromto){
+                    that._displayNewMsg(Asayto, color,Afromto);
+                }
+            }
+            
         });
+
         //发送图片
         this.socket.on('newImg', function(user, img, color) {
             that._displayImage(user, img, color);
@@ -110,11 +120,12 @@ HiChat.prototype = {
                     dataType:'json',
                     url:'/postMsg',
                     data:{
+                        username:USERNAME,
                         msg  :msg,
                         sayto:sayto,
                     },
                     success:function(data){
-                        that.socket.emit('postMsg', msg, color);
+                        that.socket.emit('postMsg', msg, color,USERNAME,sayto);
                         that._displayNewMsg(USERNAME, color,sayto);
                     },
                     error:  function(e){
@@ -221,7 +232,7 @@ HiChat.prototype = {
             type    :'post',
             dataType:'json',
             url     :'/getChatMsg',
-            data    : {sayto:sayto},
+            data    : {sayto:sayto,fromto:user},
             success : function(data){
                 if(data.status===200){
                     console.log(data.msg);
@@ -229,7 +240,7 @@ HiChat.prototype = {
                     for(var i=0;i<data.msg.length;i++){
                         var msgToDisplay = document.createElement('p');
                         msgToDisplay.style.color = color || '#000';
-                        msgToDisplay.innerHTML = user + '<span class="timespan"></span>' + data.msg[i].content;
+                        msgToDisplay.innerHTML = data.msg[i].username + '<span class="timespan"></span>' + data.msg[i].content;
                         container.appendChild(msgToDisplay);
                         container.scrollTop = container.scrollHeight;
                     }

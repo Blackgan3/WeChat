@@ -100,7 +100,7 @@ router.post('/login', function(req, res, next) {
 router.post('/postmsg', function(req, res, next) {
   //处理发送的微博
   var msg = new Message({
-    username   :req.session.user.username,
+    username   :req.body.username,
     content    :req.body.msg,
     publishTime:new Date(),
     sayto      :req.body.sayto
@@ -117,8 +117,9 @@ router.post('/postmsg', function(req, res, next) {
 //获取到当前聊天信息列表
 router.post('/getChatMsg',function(req,res,next){
     var sayto = req.body.sayto;
-    console.log(sayto);
-    Message.find({'sayto':sayto},function(error,Msg){
+    var fromto= req.body.fromto;
+    //查询当前私聊双方的的私聊信息
+    Message.find({$or:[{'username':fromto,'sayto':sayto},{'username':sayto,'sayto':fromto}]},function(error,Msg){
       if(error){
         res.send({status:8000,msg:"查询当前聊天信息失败"});
       }else{
@@ -182,6 +183,9 @@ router.get('/friendList',function(req,res,next){
 });
 router.get('/adminHome',function(req,res,next){
     res.render('adminHome');
+});
+router.get('/msgList',function(){
+    res.render('adminMsgList');
 });
 //删除指定的用户
 router.post('/removeUser',function(req,res,next){
