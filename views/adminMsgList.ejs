@@ -40,7 +40,7 @@
   <div class="sidebar-wrapper">
    <div class="logo">
     <a href="http://www.creative-tim.com" class="simple-text">
-     Creative Tim
+     weChat后台管理系统
     </a>
    </div>
 
@@ -124,27 +124,34 @@
      <div class="col-md-12">
       <div class="card">
        <div class="header">
-        <p class="category" style="font-size: 16px;color: #6dbd1d;">这里是当前系统用户的列表</p>
+        <p class="category" style="font-size: 16px;color: #6dbd1d;">当前系统的所有聊天内容</p>
+        <form class="form-search">
+          <label>发送消息人:</label>
+          <input type="text" id="sendMsg" class="input-medium search-query">
+          <label>接受消息人:</label>
+          <input type="text" id="acceptMsg" class="input-medium search-query">         
+          <button type="button" class="btn" id="searchMsg">搜索</button>
+        </form>
        </div>
        <div class="content table-responsive table-full-width">
         <table class="table table-hover table-striped">
          <thead>
          <th>序号</th>
          <th>姓名</th>
-         <th>电话号码</th>
+         <th>内容</th>
+         <th>说给</th>
          <th>操作</th>
          </thead>
          <tbody id="userListTable">
-         <% for(var i=0;i<userList.length;i++){%>
+         <% for(var i=0;i<msgList.length;i++){%>
          <tr>
-          <td><%= i+1 %></td>
-          <td><%= userList[i].username %></td>
-          <td>13781125687</td>
-          <td>
-           <button data-username="<%= userList[i].username%>" class="btn btn-info btn-fill removeUserBtn ">删除</button>
-           <button  class="btn btn-info btn-fill ">编辑</button>
-           <button  class="btn btn-info btn-fill ">禁用</button>
-          </td>
+            <td><%= i+1 %></td>
+            <td><%= msgList[i].username %></td>
+            <td><%= msgList[i].content %></td>
+            <td><%= msgList[i].sayto %></td>
+            <td>
+             <button data-username="<%= msgList[i].username%>" class="btn btn-info btn-fill removeUserBtn ">删除</button>
+            </td>
          </tr>
          <%}%>
          </tbody>
@@ -171,29 +178,24 @@
 <!--  Checkbox, Radio & Switch Plugins -->
 <script src="/javascripts/bootstrap-checkbox-radio-switch.js"></script>
 <script>
-  $('.removeUserBtn').on('click',function(){
-      //触发删除事件，这时应向后台发送请求去删除这个用户
-      var r = confirm('是否确定删除该用户');
-      var username  = $(this).data('username');
-      if(r){
-         $.ajax({
-             type:'post',
-             url :'/removeUser',
-             dataType:'json',
-             data:{
-                 username:username
-             },
-             success:function (data) {
-                 alert(data.msg);
-                 window.location.reload();
-             },
-             error:function(error){
-                 alert(error);
-             }
-
-         })
+$(function(){
+  $('#searchMsg').on('click',function(event){
+    var sendMsg   = $('#sendMsg').val();
+    var acceptMsg = $('#acceptMsg').val();
+    $.ajax({
+      type:'post',
+      dataType:'json',
+      data    : {sendMsg:sendMsg,acceptMsg:acceptMsg},
+      url     :'/msgList',
+      success : function(data){
+        alert('success');
+      },
+      error   : function(error){
+        alert(error);
       }
-  });
+    });
+  })
+})
 </script>
 
 

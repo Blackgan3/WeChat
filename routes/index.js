@@ -184,8 +184,17 @@ router.get('/friendList',function(req,res,next){
 router.get('/adminHome',function(req,res,next){
     res.render('adminHome');
 });
-router.get('/msgList',function(){
-    res.render('adminMsgList');
+router.get('/msgList',function(req,res,next){
+  Message.find({},function(error,msgList){
+    res.render('adminMsgList',{msgList:msgList});
+  });
+});
+router.post('/msgList',function(req,res,next){
+  var sendMsg   = req.body.sendMsg;
+  var acceptMsg = req.body.acceptMsg;
+  Message.find({username:sendMsg},function(error,msgList){
+    res.send({msgList:msgList});
+  });
 });
 //删除指定的用户
 router.post('/removeUser',function(req,res,next){
