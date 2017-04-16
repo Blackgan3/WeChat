@@ -10,19 +10,112 @@
         <link rel="stylesheet" href="/stylesheets/main.css">
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
         <link rel="icon" href="favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" type="text/css" href="http://pub.idqqimg.com/smartqq/css/mq.css">
     </head>
     <body>
         <!--好友列表部分开始-->
-        <div class="friendListBox">
+<!--         <div class="friendListBox">
             <ul class="friendList nav nav-pills" id="friendListWrapper">
                 <li><a href="#friend">好友</a></li>
                 <li><a href="#group">群组</a></li>
                 <li><a href="#dynamic">动态</a></li>
             </ul>
         </div>
-        <div id="friend" class="model"></div>
-        <div id="group"  class="model"></div>
-        <div id="dynamic"class="model"></div>
+        <div id="friend"  class="model"></div>
+        <div id="group"   class="model"></div>
+        <div id="dynamic" class="model"></div> -->
+        <div id="main_container" style="display: block;">
+                <div class="panel main-panel" id="panel-0" style="display: block; transition: -webkit-transform 0.4s cubic-bezier(0, 1, 0, 1); transform: translate3d(0px, 0px, 0px);">
+                        <!--头部的图片和名字-->
+                        <div id="panelBodyWrapper-0" class="panel_body_container" style=" bottom: 50px;">
+                            <div id="panelBody-0" class="panel_body "><div id="mainTopAll" cmd="void"><div class="accountHeader">
+                                <div class="avatar_wrap">
+                                    <img src="http://q.qlogo.cn/g?b=qq&amp;nk=1343313258&amp;s=100&amp;t=1492343437056" width="40" height="40">
+                                    <span id="user_online_state" class="state_online"></span>
+                                </div>
+                                <span class="text_ellipsis user_nick">XUEGAN </span>
+                            </div>
+                          
+                        </div>
+                        <!--头部和图片部分结束-->
+                        <div class="panel selected" id="panel-2" cmd="void">
+                            <header id="panelHeader-2" class="panel_header">
+
+                                <div id="panelLeftButton-2" class="btn btn_small btn_left btn_black contact_null_btn" >
+                                    
+                                </div>
+                                <h1 id="panelTitle-2" class="text_ellipsis padding_20">联系人</h1>
+                                <!--搜索好友或者群组-->
+                                <button id="panelRightButton-2" class="btn btn_small btn_right btn_black btn_search" >
+                                    <span id="panelRightButtonText-2" class="btn_img"></span>
+                                </button>
+
+                            </header>
+
+                            <div id="panelBodyWrapper-2" class="panel_body_container" style="top: 45px; ">
+                                <div id="panelBody-2" class="panel_body "><div id="contactList" class="tab tab_animate member_tab">
+
+                                        <ul id="memberTab" class="tab_head">
+                                            <li cmd="clickMemberTab" param="friend" class="active">好友</li>
+                                            <li cmd="clickMemberTab" param="group">群组</li>
+                                        </ul>
+
+                                        <ul class="tab_body member_tab_body">
+                                            <!--好友列表部分-->
+                                            
+                                            <!--群组列表部分-->
+                                           
+                                        </ul>
+                                    </div>
+                                </div>
+                                <ul id="pannelMenuList-2" class="pannel_menu_list">
+                                </ul>
+                            </div>
+
+                        </div>
+                        </div>
+                    <ul id="pannelMenuList-0" class="pannel_menu_list">
+                    </ul>
+                </div>
+                <!--底部的一部分导航-->
+                <footer id="panelFooter-0" class="">
+                    <nav id="nav_tab" cmd="void">
+                        <ul class="nav_tab_head">
+
+                         <!--    <li id="session" class="contact" cmd="clickNav" param="session">
+                                <a>
+                                    <div class="icon"></div>
+                                    <span>会话</span>
+                                </a>
+                            </li> -->
+
+                            <li id="contact" class="conversation selected" cmd="clickNav" param="contact">
+                                <a>
+                                    <div class="icon"></div>
+                                    <span>联系人</span>
+                                </a>
+                            </li>
+
+
+                            <li id="setting" class="setup" cmd="clickNav" param="setting">
+                                <a>
+                                    <div class="icon"></div>
+                                    <span>设置</span>
+                                </a>
+                            </li>
+
+                        </ul>
+                        <!--切换背景图片-->
+                        <div class="wallpaper-ctrl">
+                            <a href="###" class="wallpaperImg pre" id="wp-ctrl-pre" title="点击切换背景图片" cmd="clickWPPre"> </a>
+                            <a href="###" class="wallpaperImg next" id="wp-ctrl-next" title="点击切换背景图片" cmd="clickWPNext"> </a>
+                        </div>
+                    </nav>
+
+
+                </footer>
+
+            </div></div>
         <!--好友列表部分结束-->
         <div class="wrapper">
             <div class="banner">
