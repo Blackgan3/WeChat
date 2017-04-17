@@ -5,6 +5,13 @@ $(function(){
 function searchMsgList(pi,pz){
     var sendMsg   = $('#sendMsg').val();
     var acceptMsg = $('#acceptMsg').val();
+    var queryData = {
+      pageIndex:pi,
+      pageSize :pz
+    };
+    if(sendMsg!=null && sendMsg!=""){
+      
+    }
     $.ajax({
       type:'post',
       dataType:'json',
