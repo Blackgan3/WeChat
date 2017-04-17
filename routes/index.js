@@ -92,6 +92,7 @@ router.post('/login', function(req, res, next) {
       }else{
         res.render('chatHome',{user:user});
       }
+      console.log(user);
   })
 });
 
@@ -193,7 +194,7 @@ router.post('/msgList',function(req,res,next){
   var sendMsg   = req.body.sendMsg;
   var acceptMsg = req.body.acceptMsg;
   Message.find({username:sendMsg},function(error,msgList){
-    res.send({msgList:msgList});
+    res.send({msgList:msgList});     
   });
 });
 //删除指定的用户

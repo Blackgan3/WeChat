@@ -144,16 +144,16 @@
          </thead>
          <tbody id="userListTable">
          <% for(var i=0;i<msgList.length;i++){%>
-         <tr>
-            <td><%= i+1 %></td>
-            <td><%= msgList[i].username %></td>
-            <td><%= msgList[i].content %></td>
-            <td><%= msgList[i].sayto %></td>
-            <td>
-             <button data-username="<%= msgList[i].username%>" class="btn btn-info btn-fill removeUserBtn ">删除</button>
-            </td>
-         </tr>
-         <%}%>
+           <tr>
+              <td><%= i+1 %></td>
+              <td><%= msgList[i].username %></td>
+              <td><%= msgList[i].content %></td>
+              <td><%= msgList[i].sayto %></td>
+              <td>
+               <button data-username="<%= msgList[i].username%>" class="btn btn-info btn-fill removeUserBtn ">删除</button>
+              </td>
+           </tr>
+         <%}%> 
          </tbody>
         </table>
 

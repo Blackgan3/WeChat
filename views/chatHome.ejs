@@ -51,29 +51,23 @@
                                 </button>
 
                             </header>
-
-                            <div id="panelBodyWrapper-2" class="panel_body_container" style="top: 45px; ">
-                                <div id="panelBody-2" class="panel_body "><div id="contactList" class="tab tab_animate member_tab">
-
-                                        <ul id="memberTab" class="tab_head">
-                                            <li cmd="clickMemberTab" param="friend" class="active">好友</li>
-                                            <li cmd="clickMemberTab" param="group">群组</li>
-                                        </ul>
-
-                                        <ul class="tab_body member_tab_body">
-                                            <!--好友列表部分-->
-                                            
-                                            <!--群组列表部分-->
-                                           
-                                        </ul>
-                                    </div>
-                                </div>
-                                <ul id="pannelMenuList-2" class="pannel_menu_list">
+                            <!--好友列表所在部分-->
+                                <ul class="nav nav-pills">
+                                    <li role="presentation" class="active"><a href="#friendListBox">好友</a></li>
+                                    <li role="presentation"><a href="#groupListBox">群组</a></li>
                                 </ul>
-                            </div>
+                            <div id="friendListWrapper" class="tab-content" style="top: 45px; ">
+                                    <ul class="friendList tab-pane fade in active" id="friendListBox">  
+                                   
+                                    </ul>
+                                    <ul class="groupList tab-pane fade" id="groupListBox">  
+                                        <li style="cursor:pointer;">时影聊天室</li>
+                                    </ul>
 
+                            </div>
+                            <!--好友列表所在部分结束-->
                         </div>
-                        </div>
+                    </div>
                     <ul id="pannelMenuList-0" class="pannel_menu_list">
                     </ul>
                 </div>
@@ -81,45 +75,27 @@
                 <footer id="panelFooter-0" class="">
                     <nav id="nav_tab" cmd="void">
                         <ul class="nav_tab_head">
-
-                         <!--    <li id="session" class="contact" cmd="clickNav" param="session">
-                                <a>
-                                    <div class="icon"></div>
-                                    <span>会话</span>
-                                </a>
-                            </li> -->
-
                             <li id="contact" class="conversation selected" cmd="clickNav" param="contact">
                                 <a>
                                     <div class="icon"></div>
                                     <span>联系人</span>
                                 </a>
                             </li>
-
-
                             <li id="setting" class="setup" cmd="clickNav" param="setting">
                                 <a>
                                     <div class="icon"></div>
                                     <span>设置</span>
                                 </a>
                             </li>
-
-                        </ul>
-                        <!--切换背景图片-->
-                        <div class="wallpaper-ctrl">
-                            <a href="###" class="wallpaperImg pre" id="wp-ctrl-pre" title="点击切换背景图片" cmd="clickWPPre"> </a>
-                            <a href="###" class="wallpaperImg next" id="wp-ctrl-next" title="点击切换背景图片" cmd="clickWPNext"> </a>
-                        </div>
+                        </ul>                
                     </nav>
-
-
                 </footer>
-
-            </div></div>
+            </div>
+        </div>
         <!--好友列表部分结束-->
-        <div class="wrapper">
+        <div class="wrapper" id="chat-box-wrapper" style="display:none">
             <div class="banner">
-                <h3 id="chatRoomTittle" style="color:#636363;">十影聊天室</h3>
+                <h3 id="chatRoomTittle" style="color:#636363;"></h3>
                 <span style="color:#636363; display:none" id="status"></span>
             </div>
             <div id="historyMsg">
