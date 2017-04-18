@@ -7,6 +7,7 @@ mongoose.connect('mongodb://localhost/weibo',function (error) {
 		console.log(error);
 	}
 });
+mongoose.Promise = global.Promise;
 //定义集合(表)的数据结构  User
 var UserSchema = mongoose.Schema({
 	username: String,

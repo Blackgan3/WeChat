@@ -130,7 +130,7 @@
           <input type="text" id="sendMsg" class="input-medium search-query">
           <label>接受消息人:</label>
           <input type="text" id="acceptMsg" class="input-medium search-query">         
-          <button type="button" class="btn" id="searchMsg">搜索</button>
+          <button type="button" class="btn" onclick="searchMsgList(0,10)" id="searchMsg">搜索</button>
         </form>
        </div>
        <div class="content table-responsive table-full-width">
@@ -143,40 +143,27 @@
          <th>操作</th>
          </thead>
          <tbody id="userListTable">
-         <% for(var i=0;i<msgList.length;i++){%>
-           <tr>
-              <td><%= i+1 %></td>
-              <td><%= msgList[i].username %></td>
-              <td><%= msgList[i].content %></td>
-              <td><%= msgList[i].sayto %></td>
-              <td>
-               <button data-username="<%= msgList[i].username%>" class="btn btn-info btn-fill removeUserBtn ">删除</button>
-              </td>
-           </tr>
-         <%}%> 
          </tbody>
         </table>
-
        </div>
+         <nav style="text-align: center;" >
+            <span id="alreadyRepay_page">
+
+            </span>
+
+            <select name=""  id="sec" onchange="switchAlreadySize()">
+                <option value="10" selected="selected">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+                <option value="25">25</option>
+                <option value="30">30</option>
+            </select>
+        </nav>
       </div>
      </div>
     </div>
    </div>
   </div>
-
- <nav style="text-align: center;" >
-        <span id="customer_page">
-
-        </span>
-
-        <select name=""  id="sec" onchange="switchSize()">
-            <option value="10" selected="selected">10</option>
-            <option value="15">15</option>
-            <option value="20">20</option>
-            <option value="25">25</option>
-            <option value="30">30</option>
-        </select>
-    </nav>
  </div>
 </div>
 
@@ -186,29 +173,9 @@
 <!--   Core JS Files   -->
 <script src="/javascripts/jquery.min.js" type="text/javascript"></script>
 <script src="/javascripts/bootstrap.min.js" type="text/javascript"></script>
-
+<script src="/javascripts/adminMsgList.js" type="text/javascript"></script>
 <!--  Checkbox, Radio & Switch Plugins -->
 <script src="/javascripts/bootstrap-checkbox-radio-switch.js"></script>
-<script>
-$(function(){
-  $('#searchMsg').on('click',function(event){
-    var sendMsg   = $('#sendMsg').val();
-    var acceptMsg = $('#acceptMsg').val();
-    $.ajax({
-      type:'post',
-      dataType:'json',
-      data    : {sendMsg:sendMsg,acceptMsg:acceptMsg},
-      url     :'/msgList',
-      success : function(data){
-        alert('success');
-      },
-      error   : function(error){
-        alert(error);
-      }
-    });
-  })
-})
-</script>
 
 
 </html>
