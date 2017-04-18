@@ -190,6 +190,9 @@ router.get('/msgList',function(req,res,next){
     res.render('adminMsgList',{msgList:msgList});
   });
 });
+router.get('/mapShow',function(req,res,next){
+  res.render('adminMap');
+})
 //获得聊天信息列表(分页，查询)
 router.post('/msgList',function(req,res,next){
   var sendMsg    = req.body.sendMsg;

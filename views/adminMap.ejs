@@ -1,0 +1,171 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+	 <!-- Bootstrap core CSS     -->
+	 <link href="/stylesheets/bootstrap.min.css" rel="stylesheet" />
+
+	 <!-- Animation library for notifications   -->
+	 <link href="/stylesheets/animate.min.css" rel="stylesheet"/>
+
+	 <!--  Light Bootstrap Table core CSS    -->
+	 <link href="/stylesheets/light-bootstrap-dashboard.css" rel="stylesheet"/>
+
+
+	 <!--  CSS for Demo Purpose, don't include it in your project     -->
+
+
+	 <!--     Fonts and icons     -->
+	 <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+	 <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+	 <link href="/stylesheets/pe-icon-7-stroke.css" rel="stylesheet" />
+	<style type="text/css">
+		body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
+	</style>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=您的密钥"></script>
+	<title>浏览器定位</title>
+</head>
+<body>
+	<div class="wrapper">
+	 <div class="sidebar" data-color="purple" data-image="assets/img/sidebar-5.jpg">
+
+	  <!--   you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple" -->
+
+
+	  <div class="sidebar-wrapper">
+	   <div class="logo">
+	    <a href="http://www.creative-tim.com" class="simple-text">
+	     weChat后台管理系统
+	    </a>
+	   </div>
+
+	   <ul class="nav">
+	    <li>
+	     <a href="/adminHome">
+	      <i class="pe-7s-user"></i>
+	      <p>账户详情</p>
+	     </a>
+	    </li>
+	    <li >
+	     <a href="/friendList">
+	      <i class="pe-7s-note2"></i>
+	      <p>好友列表</p>
+	     </a>
+	    </li>
+	    <li>
+	     <a href="/msgList">
+	      <i class="pe-7s-note2"></i>
+	      <p>聊天信息</p>
+	     </a>
+	    </li>
+	    <li class="active">
+	     <a href="/mapShow">
+	      <i class="pe-7s-map-marker"></i>
+	      <p>当前位置</p>
+	     </a>
+	    </li>
+	   </ul>
+	  </div>
+	 </div>
+
+	 <div class="main-panel">
+	  <nav class="navbar navbar-default navbar-fixed">
+	   <div class="container-fluid">
+	    <div class="navbar-header">
+	     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+	      <span class="sr-only">Toggle navigation</span>
+	      <span class="icon-bar"></span>
+	      <span class="icon-bar"></span>
+	      <span class="icon-bar"></span>
+	     </button>
+	     <a class="navbar-brand" href="#">聊天信息列表</a>
+	    </div>
+	    <div class="collapse navbar-collapse">
+	     <ul class="nav navbar-nav navbar-left">
+	      <li>
+	       <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+	        <i class="fa fa-dashboard"></i>
+	       </a>
+	      </li>
+	      <li class="dropdown">
+	       <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+	        <i class="fa fa-globe"></i>
+	        <b class="caret"></b>
+	        <span class="notification">5</span>
+	       </a>
+	       <ul class="dropdown-menu">
+	        <li><a href="#">Notification 1</a></li>
+	        <li><a href="#">Notification 2</a></li>
+	        <li><a href="#">Notification 3</a></li>
+	        <li><a href="#">Notification 4</a></li>
+	        <li><a href="#">Another notification</a></li>
+	       </ul>
+	      </li>
+	      <li>
+	       <a href="">
+	        <i class="fa fa-search"></i>
+	       </a>
+	      </li>
+	     </ul>
+
+	    </div>
+	   </div>
+	  </nav>
+
+
+	  <div class="content">
+	   <div class="container-fluid">
+	    <div class="row">
+	     <div class="col-md-12">
+	      <div class="card">
+	       <div class="header">
+	        <p class="category" style="font-size: 16px;color: #6dbd1d;">当前系统的所有聊天内容</p>
+	        <form class="form-search">
+	          <label>发送消息人:</label>
+	          <input type="text" id="sendMsg" class="input-medium search-query">
+	          <label>接受消息人:</label>
+	          <input type="text" id="acceptMsg" class="input-medium search-query">         
+	          <button type="button" class="btn" onclick="searchMsgList(0,10)" id="searchMsg">搜索</button>
+	        </form>
+	       </div>
+	       <div class="content table-responsive table-full-width" id="allmap">
+
+	       </div>
+	      </div>
+	     </div>
+	    </div>
+	   </div>
+	  </div>
+	 </div>
+	</div>
+</body>
+
+</html>
+<script type="text/javascript">
+	// 百度地图API功能
+	var map = new BMap.Map("allmap");
+	var point = new BMap.Point(116.331398,39.897445);
+	map.centerAndZoom(point,12);
+
+	var geolocation = new BMap.Geolocation();
+	geolocation.getCurrentPosition(function(r){
+		if(this.getStatus() == BMAP_STATUS_SUCCESS){
+			var mk = new BMap.Marker(r.point);
+			map.addOverlay(mk);
+			map.panTo(r.point);
+			alert('您的位置：'+r.point.lng+','+r.point.lat);
+		}
+		else {
+			alert('failed'+this.getStatus());
+		}        
+	},{enableHighAccuracy: true})
+	//关于状态码
+	//BMAP_STATUS_SUCCESS	检索成功。对应数值“0”。
+	//BMAP_STATUS_CITY_LIST	城市列表。对应数值“1”。
+	//BMAP_STATUS_UNKNOWN_LOCATION	位置结果未知。对应数值“2”。
+	//BMAP_STATUS_UNKNOWN_ROUTE	导航结果未知。对应数值“3”。
+	//BMAP_STATUS_INVALID_KEY	非法密钥。对应数值“4”。
+	//BMAP_STATUS_INVALID_REQUEST	非法请求。对应数值“5”。
+	//BMAP_STATUS_PERMISSION_DENIED	没有权限。对应数值“6”。(自 1.1 新增)
+	//BMA
+</script>
