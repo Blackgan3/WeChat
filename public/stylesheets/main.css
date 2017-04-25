@@ -1,7 +1,12 @@
 html, body {
     margin: 0;
-    background-color: #efefef;
+    background-color: rgba(0,0,0,0.1);
     font-family: sans-serif;
+}
+body{
+    background-image: url('../images/chatRoom_back.jpg');
+    -webkit-background-size:100% 100%;
+    background-size:100% 100%;
 }
 /*好友列表部分样式*/
 .friendListBox{
@@ -18,11 +23,14 @@ html, body {
 /*好友列表部分结束*/
 /*中间信息部分样式*/
 .wrapper {
-    width: 500px;
-    height: 640px;
-    padding: 5px;
+    width: 550px;
+    height: 80%;
+    padding: 0;
     margin: 0 auto;
-    background-color: #ddd;
+    margin-top:6%;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;;
 }
 
 #loginWrapper {
@@ -41,22 +49,32 @@ html, body {
     display: none;
 }
 .banner {
-    height: 80px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 18px;
+    text-align: center;
     width: 100%;
-    color:#ECECEC;
+    color: #ffffff;
+    background-color: #000;
+    -webkit-border-radius:inherit;
+    -moz-border-radius:inherit;
+    border-radius:inherit;
 }
 .banner p {
     float: left;
     display: inline-block;
 }
 .controls {
-    height: 100px;
-    margin: 5px 0px;
+    height: 18%;
     position: relative;
+    background-color: #C4BDB3;
+    -webkit-border-radius:inherit;
+    -moz-border-radius:inherit;
+    border-radius:inherit;
 }
 #historyMsg {
-    height: 400px;
-    background-color: #fff;
+    height: 73%;
+    background-color: rgba(0,0,0,.5);
     overflow: auto;
     padding: 2px;
 }
@@ -67,7 +85,7 @@ html, body {
     color: #ddd;
 }
 .items {
-    height: 30px;
+    height: 40%;
 }
 #colorStyle {
     width: 50px;
@@ -89,16 +107,21 @@ html, body {
 /*end custom file input*/
 
 #messageInput {
-    width: 440px;
-    max-width: 440px;
-    height: 90px;
-    max-height: 90px;
+    width: 470px;
+    max-width: 470px;
+    height: 60%;
+    max-height: 45px;
     float:left;
+    border-radius: 8px;
+    margin-left:3px;
 }
 #sendBtn {
     width: 50px;
-    height: 96px;
+    height: 50%;
     float: right;
+    margin-right:3px;
+    color: white;
+    border:none;
 }
 #emojiWrapper {
     display: none;

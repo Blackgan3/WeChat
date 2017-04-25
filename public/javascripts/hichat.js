@@ -204,7 +204,6 @@ HiChat.prototype = {
                 //将进行一系列改变，来将聊天窗口变成单聊窗口
                 if(confirm("确定要私聊"+target.innerHTML+"吗？")){
                     //进行私聊处理
-                    $('#chat-box-wrapper')[0].style.display = 'block';
                     sayto = target.innerHTML;
                     that._privateChat(target.innerHTML,USERNAME);
                 }

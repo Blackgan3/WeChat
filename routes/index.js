@@ -92,7 +92,6 @@ router.post('/login', function(req, res, next) {
       }else{
         res.render('chatHome',{user:user});
       }
-      console.log(user);
   })
 });
 
@@ -190,42 +189,12 @@ router.get('/msgList',function(req,res,next){
     res.render('adminMsgList',{msgList:msgList});
   });
 });
-router.get('/mapShow',function(req,res,next){
-  res.render('adminMap');
-})
-//获得聊天信息列表(分页，查询)
 router.post('/msgList',function(req,res,next){
-  var sendMsg    = req.body.sendMsg;
-  var acceptMsg  = req.body.acceptMsg;
-  var pageIndex  = req.body.pageIndex;
-  var pageSize   = req.body.pageSize;
-  var searchData = {};
-  if(sendMsg!=""&& sendMsg!=null){
-    searchData.username = sendMsg;
-  }
-  if(acceptMsg!="" && acceptMsg !=null){
-    searchData.sayto   = acceptMsg;
-  }
-  var a = 0;
-  var msgCount = "";
-  Message.find({},function(error,msgList){
-    msgCount = msgList.length;
-  Message.find(searchData)
-  .skip(parseInt(pageIndex)*parseInt(pageSize))
-  .limit(parseInt(pageSize))
-  .exec(function(error,msgList){
-    res.send({
-        msgList:msgList,
-        totalPages:Math.ceil(msgCount/pageSize),
-        totalElements:msgCount
-    });
-  })
-  })
- 
- /* Message.find(searchData,null,{skip: 0, limit: 10, sort:{ "-createtime":1}},function(error,msgList){
-    res.send({msgList:msgList});     
-  });*/
-
+  var sendMsg   = req.body.sendMsg;
+  var acceptMsg = req.body.acceptMsg;
+  Message.find({username:sendMsg},function(error,msgList){
+    res.send({msgList:msgList});
+  });
 });
 //删除指定的用户
 router.post('/removeUser',function(req,res,next){

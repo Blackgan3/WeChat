@@ -7,10 +7,10 @@
         <meta name="description" content="hichat | a simple chat application built with node.js and websocket">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>十影|<%=user.username%></title>
-        <link rel="stylesheet" href="/stylesheets/main.css">
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
         <link rel="icon" href="favicon.ico" type="image/x-icon">
         <link rel="stylesheet" type="text/css" href="http://pub.idqqimg.com/smartqq/css/mq.css">
+        <link rel="stylesheet" href="/stylesheets/main.css">
     </head>
     <body>
         <!--好友列表部分开始-->
@@ -24,10 +24,10 @@
         <div id="friend"  class="model"></div>
         <div id="group"   class="model"></div>
         <div id="dynamic" class="model"></div> -->
-        <div id="main_container" style="display: block;">
+        <div id="main_container" style="display: block;margin-left: 40px;">
                 <div class="panel main-panel" id="panel-0" style="display: block; transition: -webkit-transform 0.4s cubic-bezier(0, 1, 0, 1); transform: translate3d(0px, 0px, 0px);">
-                        <!--头部的图片和名字-->
-                        <div id="panelBodyWrapper-0" class="panel_body_container" style=" bottom: 50px;">
+                    <!--头部的图片和名字-->
+                    <div id="panelBodyWrapper-0" class="panel_body_container" style=" bottom: 50px;">
                             <div id="panelBody-0" class="panel_body "><div id="mainTopAll" cmd="void"><div class="accountHeader">
                                 <div class="avatar_wrap">
                                     <img src="http://q.qlogo.cn/g?b=qq&amp;nk=1343313258&amp;s=100&amp;t=1492343437056" width="40" height="40">
@@ -51,51 +51,75 @@
                                 </button>
 
                             </header>
-                            <!--好友列表所在部分-->
-                                <ul class="nav nav-pills">
-                                    <li role="presentation" class="active"><a href="#friendListBox">好友</a></li>
-                                    <li role="presentation"><a href="#groupListBox">群组</a></li>
-                                </ul>
-                            <div id="friendListWrapper" class="tab-content" style="top: 45px; ">
-                                    <ul class="friendList tab-pane fade in active" id="friendListBox">  
-                                   
-                                    </ul>
-                                    <ul class="groupList tab-pane fade" id="groupListBox">  
-                                        <li style="cursor:pointer;">时影聊天室</li>
-                                    </ul>
 
+                            <div id="panelBodyWrapper-2" class="panel_body_container" style="top: 45px; ">
+                                <div id="panelBody-2" class="panel_body "><div id="contactList" class="tab tab_animate member_tab">
+
+                                        <ul id="memberTab" class="tab_head">
+                                            <li cmd="clickMemberTab" param="friend" class="active">好友</li>
+                                            <li cmd="clickMemberTab" param="group">群组</li>
+                                        </ul>
+
+                                        <ul class="tab_body member_tab_body">
+                                            <!--好友列表部分-->
+                                            
+                                            <!--群组列表部分-->
+                                           
+                                        </ul>
+                                    </div>
+                                </div>
+                                <ul id="pannelMenuList-2" class="pannel_menu_list">
+                                </ul>
                             </div>
-                            <!--好友列表所在部分结束-->
+
                         </div>
-                    </div>
+                        </div>
                     <ul id="pannelMenuList-0" class="pannel_menu_list">
                     </ul>
                 </div>
                 <!--底部的一部分导航-->
-                <footer id="panelFooter-0" class="">
-                    <nav id="nav_tab" cmd="void">
+                    <footer id="panelFooter-0" class="">
+                        <nav id="nav_tab" cmd="void">
                         <ul class="nav_tab_head">
+
+                         <!--    <li id="session" class="contact" cmd="clickNav" param="session">
+                                <a>
+                                    <div class="icon"></div>
+                                    <span>会话</span>
+                                </a>
+                            </li> -->
+
                             <li id="contact" class="conversation selected" cmd="clickNav" param="contact">
                                 <a>
                                     <div class="icon"></div>
                                     <span>联系人</span>
                                 </a>
                             </li>
+
+
                             <li id="setting" class="setup" cmd="clickNav" param="setting">
                                 <a>
                                     <div class="icon"></div>
                                     <span>设置</span>
                                 </a>
                             </li>
-                        </ul>                
+
+                        </ul>
+                        <!--切换背景图片-->
+                        <div class="wallpaper-ctrl">
+                            <a href="###" class="wallpaperImg pre" id="wp-ctrl-pre" title="点击切换背景图片" cmd="clickWPPre"> </a>
+                            <a href="###" class="wallpaperImg next" id="wp-ctrl-next" title="点击切换背景图片" cmd="clickWPNext"> </a>
+                        </div>
                     </nav>
-                </footer>
-            </div>
+                    </footer>
+
+                </div>
         </div>
         <!--好友列表部分结束-->
-        <div class="wrapper" id="chat-box-wrapper" style="display:none">
+        <!--中间聊天室部分开始-->
+        <div class="wrapper">
             <div class="banner">
-                <h3 id="chatRoomTittle" style="color:#636363;"></h3>
+                <h3 id="chatRoomTittle">十影聊天室</h3>
                 <span style="color:#636363; display:none" id="status"></span>
             </div>
             <div id="historyMsg">
@@ -112,11 +136,12 @@
                     <input style="float:right;" id="chatRecords" type="button" value="聊天记录" />
                 </div>
                 <textarea id="messageInput" placeHolder="点击发送消息"></textarea>
-                <input id="sendBtn" type="button" value="发送">
+                <input id="sendBtn" type="button" class="btn btn_blue btn_small" value="发送">
                 <div id="emojiWrapper">
                 </div>
             </div>
         </div>
+        <!--中间聊天室部分结束-->
         <!--当前在线成员-->
         <div class="onLineUser" style="position:absolute;right:30px;top:0;">
             <ul class="onLineUserList" id="userListWrapper">
