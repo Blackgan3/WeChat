@@ -195,10 +195,6 @@ HiChat.prototype = {
             if (target.nodeName.toLowerCase() == 'li') {
                 //向特定的好友发送好友请求
                 that.socket.emit('sendFriendReq',target.innerHTML,USERNAME);
-<<<<<<< HEAD
-
-=======
->>>>>>> temp
             };
         }, false);
         //给好友列表中的每一个好友绑定点击事件
@@ -209,10 +205,7 @@ HiChat.prototype = {
                 if(confirm("确定要私聊"+target.innerHTML+"吗？")){
                     //进行私聊处理
                     sayto = target.innerHTML;
-<<<<<<< HEAD
                     $('#chatFrame').css('display','block');
-=======
->>>>>>> temp
                     that._privateChat(target.innerHTML,USERNAME);
                 }
             }
@@ -326,11 +319,8 @@ HiChat.prototype = {
         $('.friendList').empty();
         var str = '';
         for(var i=0;i<data.length;i++){
-<<<<<<< HEAD
+
             str+='<li class="list-group-item" style="cursor:pointer;">'+data[i].friend+'</li>';
-=======
-            str+='<li style="cursor:pointer;">'+data[i].friend+'</li>';
->>>>>>> temp
         }
         $('.friendList').append(str);
     },

@@ -16,14 +16,8 @@ body{
     height:200px;
 }
 .friendList{
-<<<<<<< HEAD
     width: 100%;
     height:100%;
-=======
-    width: 150px;
-    height:200px;
-    background:#FCF6DB;
->>>>>>> temp
 }
 /*好友列表部分结束*/
 /*中间信息部分样式*/

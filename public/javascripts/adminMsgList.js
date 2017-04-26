@@ -1,6 +1,5 @@
 $(function(){
 
-<<<<<<< HEAD
   searchMsgList(0,10);
 });
 function searchMsgList(pi,ps){
@@ -118,27 +117,8 @@ function searchMsgList(pi,ps){
                 $('#alreadyRepay_page').html(ahtml);
             }
             $('#userListTable').html(crhtml);
-=======
-
-});
-function searchMsgList(pi,pz){
-    var sendMsg   = $('#sendMsg').val();
-    var acceptMsg = $('#acceptMsg').val();
-    $.ajax({
-      type:'post',
-      dataType:'json',
-      data    : {sendMsg:sendMsg,acceptMsg:acceptMsg},
-      url     :'/msgList',
-      success : function(data){
-        //请求聊天信息成功,在这里进行聊天信息的渲染
-        
->>>>>>> temp
-      },
-      error   : function(error){
-        alert(error);
       }
     });
-<<<<<<< HEAD
 }
 // 跳转页数
 function switchAlreadyPage(){
@@ -155,6 +135,4 @@ function switchAlreadyPage(){
 function switchAlreadySize(){
     var options=$("#sec option:selected");
     searchMsgList( 0,options.val());
-=======
->>>>>>> temp
 }

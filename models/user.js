@@ -11,13 +11,10 @@ mongoose.connect('mongodb://localhost/weibo',function (error) {
 var UserSchema = mongoose.Schema({
 	username: String,
 	password: String,
-<<<<<<< HEAD
 	mail    : String,
 	signature:String,
 	country : String,
 	city    : String
-=======
->>>>>>> temp
 });
 
 //定义了一个User集合(表)
