@@ -22,6 +22,7 @@ router.get('/reg', function(req, res, next) {
 });
 //注册操作
 router.post('/reg', function(req, res, next) {
+<<<<<<< HEAD
     //1.查询数据库,判断当前的用户名是否存在
     User.findOne({username:req.body.username},function (error,user) {
       //用户已经存在
@@ -53,13 +54,52 @@ router.post('/reg', function(req, res, next) {
           console.log("注册成功");
           return res.redirect('/');
         }else{
+=======
+  	//1.查询数据库,判断当前的用户名是否存在
+  	User.findOne({username:req.body.username},function (error,user) {
+  		//用户已经存在
+  		if (user) {
+  			//console.log('用户已经存在');
+  			error = "该用户名已存在,请重新输入";
+  		}else if (req.body.password !== req.body.repassword) {
+  			error = "两次密码输入不一致";
+        //console.log("两次密码输入不一致");
+  		}
+  		if (error) {
+        //将错误存入session
+        req.session.error = error;
+  			//回到注册页面
+  			return res.redirect('/reg');
+  		}
+      console.log(error);
+
+  		//用户名可以用
+  		var user = new User({
+  			username:req.body.username,
+  			password:req.body.password
+  		})
+
+  		//存入数据库
+  		user.save(function (error) {
+  			if (!error) {
+  				req.session.success = '注册成功';
+          console.log("注册成功");
+  				return res.redirect('/');
+  			}else{
+>>>>>>> temp
           req.session.error = "注册失败";
           console.log("注册失败");
           return res.redirect('/reg');
         }
+<<<<<<< HEAD
       })
 
     })
+=======
+  		})
+
+  	})
+>>>>>>> temp
 
 });
 //进入登陆
@@ -92,7 +132,10 @@ router.post('/login', function(req, res, next) {
       }else{
         res.render('chatHome',{user:user});
       }
+<<<<<<< HEAD
       console.log(user);
+=======
+>>>>>>> temp
   })
 });
 
@@ -190,6 +233,7 @@ router.get('/msgList',function(req,res,next){
     res.render('adminMsgList',{msgList:msgList});
   });
 });
+<<<<<<< HEAD
 //获得聊天信息列表(分页，查询)
 router.post('/msgList',function(req,res,next){
   var sendMsg    = req.body.sendMsg;
@@ -223,6 +267,14 @@ router.post('/msgList',function(req,res,next){
     res.send({msgList:msgList});     
   });*/
 
+=======
+router.post('/msgList',function(req,res,next){
+  var sendMsg   = req.body.sendMsg;
+  var acceptMsg = req.body.acceptMsg;
+  Message.find({username:sendMsg},function(error,msgList){
+    res.send({msgList:msgList});
+  });
+>>>>>>> temp
 });
 //删除指定的用户
 router.post('/removeUser',function(req,res,next){
