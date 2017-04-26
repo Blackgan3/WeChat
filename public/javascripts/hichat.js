@@ -7,7 +7,8 @@
  */
 
 window.onload = function() {
-    var sayto  = '';
+    var sayto    = '';
+    var chatType = '';
     var hichat = new HiChat();
     hichat.init();
 };
@@ -58,6 +59,11 @@ HiChat.prototype = {
                 }
             }
             
+        });
+        //发送群组消息
+        this.socket.on('newGroupMsg', function(msg, color, Afromto,Asayto) {
+            //判断私聊对象是否是当前客户端如果是则进入处理流程
+            that._displayGroupNewMsg(Afromto, color,Asayto);
         });
 
         //发送图片
@@ -125,8 +131,15 @@ HiChat.prototype = {
                         sayto:sayto,
                     },
                     success:function(data){
-                        that.socket.emit('postMsg', msg, color,USERNAME,sayto);
-                        that._displayNewMsg(USERNAME, color,sayto);
+                        if(chatType == 'group'){
+                            //驱动其他用户进行消息渲染
+                            that.socket.emit('postGroupMsg', msg, color,USERNAME,sayto);
+                            //本页面进行消息渲染
+                            that._displayGroupNewMsg(USERNAME, color,sayto);
+                        }else{
+                            that.socket.emit('postMsg', msg, color,USERNAME,sayto);
+                            that._displayNewMsg(USERNAME, color,sayto);
+                        }
                     },
                     error:  function(e){
                         alert(e);
@@ -189,12 +202,21 @@ HiChat.prototype = {
                 messageInput.value = messageInput.value + '[emoji:' + target.title + ']';
             };
         }, false);
-        //给每一个用户列表绑定点击事件
+        //用户列表中的聊天室用户绑定事件
         document.getElementById('userListWrapper').addEventListener('click', function(e) {
             var target = e.target;
             if (target.nodeName.toLowerCase() == 'li') {
+                //判断当前要添加的用户是否已经是自己的好友
+                $.post('/judgeFriend',{master:USERNAME,friend:target.innerHTML},
+                    function(data,status){
+                        if(data.status == 300){
+                            alert(data.msg);
+                        }else{
+                            that.socket.emit('sendFriendReq',target.innerHTML,USERNAME);
+                        }
+                    }
+                );
                 //向特定的好友发送好友请求
-                that.socket.emit('sendFriendReq',target.innerHTML,USERNAME);
             };
         }, false);
         //给好友列表中的每一个好友绑定点击事件
@@ -210,6 +232,20 @@ HiChat.prototype = {
                 }
             }
         });
+        //给群组列表中的每一个群组绑定点击事件
+        document.getElementById('groupListWrapper').addEventListener('click',function(e){
+            var target = e.target;
+            if(target.nodeName.toLowerCase() == 'li'){
+                //将进行一系列改变，来将聊天窗口变成单聊窗口
+                if(confirm("确定要去"+target.innerHTML+"进行聊天吗吗？")){
+                    //进行群聊处理
+                    chatType = 'group';
+                    sayto = target.innerHTML;
+                    $('#chatFrame').css('display','block');
+                    that._groupChat(target.innerHTML,USERNAME);
+                }
+            }
+        })
     },
     _initialEmoji: function() {
         var emojiContainer = document.getElementById('emojiWrapper'),
@@ -222,7 +258,7 @@ HiChat.prototype = {
         }
         emojiContainer.appendChild(docFragment);
     },
-    //根据发送的消息进行渲染界面    
+    //根据发送的消息进行私聊渲染界面    
     _displayNewMsg: function(user,color,sayto) {
         var container = document.getElementById('historyMsg'),
             date = new Date().toTimeString().substr(0, 8),
@@ -233,6 +269,36 @@ HiChat.prototype = {
             type    :'post',
             dataType:'json',
             url     :'/getChatMsg',
+            data    : {sayto:sayto,fromto:user},
+            success : function(data){
+                if(data.status===200){
+                    console.log(data.msg);
+                    container.innerHTML='';
+                    for(var i=0;i<data.msg.length;i++){
+                        var msgToDisplay = document.createElement('p');
+                        msgToDisplay.style.color = color || '#000';
+                        msgToDisplay.innerHTML = data.msg[i].username + '<span class="timespan"></span>' + data.msg[i].content;
+                        container.appendChild(msgToDisplay);
+                        container.scrollTop = container.scrollHeight;
+                    }
+                }
+            },
+            error   : function(error){
+                alert(error);
+            }
+        });
+    },
+    //根据发送的消息进行群组渲染界面
+    _displayGroupNewMsg:function(user,color,sayto){
+        var container = document.getElementById('historyMsg'),
+            date = new Date().toTimeString().substr(0, 8),
+            //determine whether the msg contains emoji
+            msg = this._showEmoji(msg);
+        //去后台请求所有的聊天消息
+        $.ajax({
+            type    :'post',
+            dataType:'json',
+            url     :'/getGroupChatMsg',
             data    : {sayto:sayto,fromto:user},
             success : function(data){
                 if(data.status===200){
@@ -298,7 +364,7 @@ HiChat.prototype = {
         $('.onLineUserList').empty();
         var str = '';
         for(var i=0;i<data.length;i++){
-            str+='<li style="cursor:pointer;">'+data[i].username+'</li>';
+            str+='<li class="list-group-item" style="cursor:pointer;">'+data[i].username+'</li>';
         }
         $('.onLineUserList').append(str);
 
@@ -330,5 +396,11 @@ HiChat.prototype = {
         document.getElementById('chatRoomTittle').innerHTML = sayto;
         //改变聊天框中展示的内容
         this._displayNewMsg(principle,'#000',sayto);
+    },
+    //群聊用户的事件处理
+    _groupChat:function(sayto,principle){
+        //群聊，将聊天窗口的名字变成群组的名字
+        document.getElementById('chatRoomTittle').innerHTML = sayto;
+        this._displayGroupNewMsg(principle,'#000',sayto);
     }
 };

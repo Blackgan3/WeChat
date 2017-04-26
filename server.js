@@ -70,7 +70,9 @@ io.sockets.on('connection', function(socket) {
     socket.on('postMsg', function(msg, color,fromto, sayto) {
         socket.broadcast.emit('newMsg', msg, color,fromto,sayto);
     });
-
+    socket.on('postGroupMsg', function(msg, color,fromto, sayto) {
+        socket.broadcast.emit('newGroupMsg', msg, color,fromto,sayto);
+    });
     //处理新发送来的信息
     socket.on('saveMsg', function(msg, color) {
         socket.broadcast.emit('newMsg', socket.nickname, msg, color);

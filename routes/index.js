@@ -127,6 +127,19 @@ router.post('/getChatMsg',function(req,res,next){
       }
     });
 });
+//获取当前的群聊消息列表
+router.post('/getGroupChatMsg',function(req,res,next){
+    var sayto = req.body.sayto;
+    var fromto= req.body.fromto;
+    //查询当前私聊双方的的私聊信息
+    Message.find({sayto:sayto},function(error,Msg){
+      if(error){
+        res.send({status:8000,msg:"查询群组聊天信息失败"});
+      }else{
+        res.send({status:200, msg:Msg});
+      }
+    });
+});
 //获取到当前用户列表
 router.get('/getOnLineUser',function(req,res,next){
     User.find({},function(error,user){
@@ -172,6 +185,16 @@ router.post('/getFriList',function(req,res,next){
   });
 });
 
+//判断当前用户请求的对象是否已经是好友了
+router.post('/judgeFriend',function(req,res,next){
+  FriendsList.find({master:req.body.master,friend:req.body.friend},function (error,friendsList){
+      if(friendsList){
+        res.send({status:300,msg:"该好友已经存在了"});
+      }else{
+        res.send({status:200,msg:"用户还没有该好友"});
+      }
+  })
+})
 module.exports = router;
 
 
