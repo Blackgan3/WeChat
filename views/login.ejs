@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>用户登录</title>
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+	<style>
+		.login-box{
+			background: rgba(59, 61, 131, 0.6);
+			-webkit-border-radius:;
+			-moz-border-radius:;
+			border-radius:50% 50%;
+			margin-top:12%;
+
+		}
+	</style>
+</head>
+<body class="hold-transition login-page">
+<%if(error){%>
+<div class="alert alert-danger" role="alert"><%=error%></div>
+<%}%>
+<%if(success){%>
+<div class="alert alert-success" role="alert"><%=success%></div>
+<%}%>
+
+<div class="login-box col-sm-4 col-sm-offset-4">
+
+<form class="form-horizontal" method="post" action="/login">
+
+		<div class="form-group row" style="margin-top: 40px; color: white;" >
+			<label for="username" class="control-label col-sm-4" >用户名</label>
+			<div class="col-sm-6">
+      			<input type="text" class="form-control" id="username" name="username" placeholder="用户名">
+    		</div>
+		</div>
+		<div class="form-group row" style="color: white;">
+			<label for="password" class="control-label col-sm-4">密码</label>
+			<div class="col-sm-6">
+      			<input type="password" class="form-control" id="password" name="password" placeholder="密码">
+    		</div>
+		</div>
+		<div class="form-group row" style="text-align: center;">
+
+			<button type="submit" class="btn btn-primary">登陆</button>
+			<a href="/reg" class="btn btn-primary">注册</a>
+		</div>
+
+
+</form>
+
+</div>
+	<script src="/javascripts/jquery.min.js"></script>
+  	<script src="/javascripts/bootstrap.min.js"></script>
+  	<script src="/javascripts/login.js"></script>
+	<script src="/javascripts/jquery.backstretch.min.js"></script>
+	<script type="text/javascript">
+        $.backstretch([
+            "/images/back1.jpg",
+            "/images/back2.jpg",
+            "/images/back3.jpg",
+            "/images/back4.jpg"
+        ], {
+            fade: 4000,
+            duration: 6000
+        });
+	</script>
+</body>
+</html>

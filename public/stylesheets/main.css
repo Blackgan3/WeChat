@@ -1,0 +1,147 @@
+html, body {
+    margin: 0;
+    background-color: rgba(0,0,0,0.1);
+    font-family: sans-serif;
+}
+body{
+    background-image: url('../images/chatRoom_back.jpg');
+    -webkit-background-size:100% 100%;
+    background-size:100% 100%;
+}
+/*好友列表部分样式*/
+.friendListBox{
+    float: left;
+    margin-left : 310px;
+    width: 150px;
+    height:200px;
+}
+.friendList{
+    width: 100%;
+    height:100%;
+}
+/*好友列表部分结束*/
+/*中间信息部分样式*/
+.wrapper {
+    width: 550px;
+    height: 80%;
+    padding: 0;
+    margin: 0 auto;
+    margin-top:6%;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;;
+}
+
+#loginWrapper {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(5, 5, 5, .6);
+    text-align: center;
+    color: #fff;
+    display: block;
+    padding-top: 200px;
+}    
+#nickWrapper {
+    display: none;
+}
+.banner {
+    height: 40px;
+    line-height: 40px;
+    font-size: 18px;
+    text-align: center;
+    width: 100%;
+    color: #ffffff;
+    background-color: #000;
+    -webkit-border-radius:inherit;
+    -moz-border-radius:inherit;
+    border-radius:inherit;
+}
+.banner p {
+    float: left;
+    display: inline-block;
+}
+.controls {
+    height: 18%;
+    position: relative;
+    background-color: #C4BDB3;
+    -webkit-border-radius:inherit;
+    -moz-border-radius:inherit;
+    border-radius:inherit;
+}
+#historyMsg {
+    height: 73%;
+    background-color: rgba(0,0,0,.5);
+    overflow: auto;
+    padding: 2px;
+}
+#historyMsg img {
+    max-width: 99%;
+}
+.timespan {
+    color: #ddd;
+}
+.items {
+    height: 40%;
+}
+#colorStyle {
+    width: 50px;
+    border: none;
+    padding: 0;
+}
+/*custom the file input*/
+
+.imageLable {
+    position: relative;
+}
+#sendImage {
+    position: absolute;
+    width: 52px;
+    left: 0;
+    opacity: 0;
+    overflow: hidden;
+}
+/*end custom file input*/
+
+#messageInput {
+    width: 470px;
+    max-width: 470px;
+    height: 60%;
+    max-height: 45px;
+    float:left;
+    border-radius: 8px;
+    margin-left:3px;
+}
+#sendBtn {
+    width: 50px;
+    height: 50%;
+    float: right;
+    margin-right:3px;
+    color: white;
+    border:none;
+}
+#emojiWrapper {
+    display: none;
+    width: 500px;
+    bottom: 105px;
+    position: absolute;
+    background-color: #aaa;
+    box-shadow: 0 0 10px #555;
+}
+#emojiWrapper img {
+    margin: 2px;
+    padding: 2px;
+    width: 25px;
+    height: 25px;
+}
+#emojiWrapper img:hover {
+    background-color: blue;
+}
+.emoji{
+    display: inline;
+}
+footer {
+    text-align: center;
+}
