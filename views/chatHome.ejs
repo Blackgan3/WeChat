@@ -31,7 +31,9 @@
                     <div id="panelBodyWrapper-0" class="panel_body_container" style=" bottom: 50px;">
                             <div id="panelBody-0" class="panel_body "><div id="mainTopAll" cmd="void"><div class="accountHeader">
                                 <div class="avatar_wrap" id="userHead">
-                                    <img src="http://q.qlogo.cn/g?b=qq&amp;nk=1343313258&amp;s=100&amp;t=1492343437056" width="40" height="40">
+                                    <a href="#lookUserInfoModel" data-toggle="modal">
+                                        <img src="http://q.qlogo.cn/g?b=qq&amp;nk=1343313258&amp;s=100&amp;t=1492343437056" width="40" height="40">
+                                    </a>
                                     <span id="user_online_state" class="state_online"></span>
                                 </div>
 
@@ -56,7 +58,8 @@
                             </header>
 
                             <div id="panelBodyWrapper-2" class="panel_body_container" style="top: 45px; ">
-                                <div id="panelBody-2" class="panel_body "><div id="contactList" class="tab tab_animate member_tab">
+                                <div id="panelBody-contact" class="panel_body ">
+                                    <div id="contactList" class="tab tab_animate member_tab">
 
                                         <ul id="memberTab" class="tab_head nav nav-tabs">
                                             <li cmd="clickMemberTab" param="friend" id="friendList_tab" class="active">好友</li>
@@ -75,6 +78,14 @@
                                         </ul>
                                     </div>
                                 </div>
+                                <div id="panelBody-set" class="panel_body " style="display:none">
+                                    <div id="contactList" class="tab tab_animate member_tab">
+                                        <!--设置部分-->
+                                        <ul class=" list-group" id="setUl">    
+                                            <li class="list-group-item" id="tenNaruto" >修改密码</li>                   
+                                        </ul>
+                                    </div>
+                                </div>                                
                                 <ul id="pannelMenuList-2" class="pannel_menu_list">
                                 </ul>
                             </div>
@@ -88,14 +99,14 @@
                     <footer id="panelFooter-0" class="">
                         <nav id="nav_tab" cmd="void">
                         <ul class="nav_tab_head">
-                            <li id="contact" class="conversation selected" cmd="clickNav" param="contact">
-                                <a>
+                            <li id="contact" class="conversation selected " id="" cmd="clickNav" param="contact" >
+                                <a href="javascript:void(0);" id="changeContact">
                                     <div class="icon"></div>
                                     <span>联系人</span>
                                 </a>
                             </li>
-                            <li id="setting" class="setup" cmd="clickNav" param="setting">
-                                <a>
+                            <li id="setting" class="setup " id="" cmd="clickNav" param="setting">
+                                <a href="javascript:void(0);" id="changeSet">
                                     <div class="icon"></div>
                                     <span>设置</span>
                                 </a>
@@ -147,7 +158,187 @@
             </ul>
         </div>
         <!--当前在线人员结束-->
+        <!--编辑用户详细信息的model-->
+        <div class="modal fade" id="compileUserInfoModel"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" >
+                <div class="modal-header">
+                    <a class="close" data-dismiss="modal">×</a>
+                    <h5>编辑个人信息</h5>
+                </div>
+                <div class="modal-body">
+                    <h5 class="text-info">基本信息</h5>
+                    <div class="row">
+                        <div class="col-sm-12 ">
+                            <!-- /.box-header -->
+                            <!-- form start -->
+                            <form class="form-horizontal" method="post"  id="compileBusinessForm"  enctype="multipart/form-data" role="form" >
+                                <div class="form-group col-sm-6 ">
+                                    <label for="inputEmail3" class="col-sm-4  control-label">用户名<span style="color:red;">*</span>:</label>
+                                    <div class="col-sm-8 ">
+                                        <input type="text" required class="form-control" name="name" id="username"  placeholder="请输入用户名"  maxlength="15" data-reg="^[A-Za-z\u4e00-\u9fa5]{1,15}$" data-reg-error="用户名格式不对">
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-6 ">
+                                    <label for="inputEmail3" class="col-sm-4  control-label">密码<span style="color:red;">*</span>:</label>
+                                    <div class="col-sm-8 ">
+                                        <input type="text" required class="form-control" name="name" id="password"  placeholder=""  maxlength="15" data-reg="^[A-Za-z\u4e00-\u9fa5]{1,15}$" value="******" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-6 ">
+                                    <label for="inputPassword3" class="col-sm-4  control-label">用户手机号<span style="color:red;">*</span>:</label>
+                                    <div class="col-sm-8 ">
+                                        <input type="text" class="form-control" name="phone" id="phone" required placeholder="请输入手机号"  data-reg="^1[34578]\d{9}$" data-reg-error="手机号格式不对">
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="inputPassword3" class="col-sm-4 control-label">邮箱<span style="color:red;">*</span>:</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" name="broker"  required id="email"  maxlength="10" data-reg="^[A-Za-z\u4e00-\u9fa5]{1,10}$" data-reg-error="对接人格式不对">
+                                    </div>
+                                </div>
+                
 
+                                <div class="form-group col-sm-6">
+                                    <label for="inputEmail3" class="col-sm-4 control-label">所在国家<span style="color:red;">*</span> :</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" required name="accountName" class="form-control" id="country" placeholder="请输入所在国家"
+                                         maxlength="15" data-reg="^[A-Za-z\u4e00-\u9fa5]{1,15}$" data-reg-error="机构账户名格式不对">
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="inputEmail3" class="col-sm-4 control-label">所在城市<span style="color:red;">*</span> :</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" required name="accountNumber" class="form-control" id="city" placeholder="请输入所在城市"
+                                        data-reg="^[0-9]{10,20}$" data-reg-error="机构账户号格式不正确" maxlength="20">
+                                    </div>
+                                </div>
+                                 
+                                <div class="form-group col-sm-12 modal-footer" style="text-align: center;">
+                                    <div class="form-group col-sm-2 pull-right" style="text-align:right">
+                                        <a href="#" class="btn btn-default" data-dismiss="modal">取消</a> 
+                                    </div>
+                                    <div class="form-group col-sm-2 pull-right" style="text-align:right">
+                                        <button type="button" onclick="submitUserInfos()" id="compileUserInfoBtn" class="btn btn-success">确定</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+
+                </div>
+               
+            </div>
+        </div>
+        </div>
+        <!--编辑用户详细信息的model结束-->
+        <!--查看用户详细信息的modal开始-->
+        <div class="modal fade" id="lookUserInfoModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog ">
+            <div class="modal-content" >
+                <div class="modal-header">
+                    <a class="close" data-dismiss="modal">×</a>
+                    <h5><%=user.username%>的个人信息</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form class="form-horizontal" role="form" style="margin-top: 20px;">
+                                <div class="form-body">
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">用户名:</label>
+                                                <div class="col-md-9">
+                                                    <p class="form-control-static">
+                                                        <%=user.username%>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--/span-->
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">邮箱:</label>
+                                                <div class="col-md-9">
+                                                    <p class="form-control-static">
+                                                        <%=user.mail%>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--/span-->
+                                    </div>
+                                    <!--/row-->
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">手机号:</label>
+                                                <div class="col-md-9">
+                                                    <p class="form-control-static">
+                                                        <%=user.phone%>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--/span-->
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">个性签名:</label>
+                                                <div class="col-md-9">
+                                                    <p class="form-control-static">
+                                                        <%=user.signature%>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--/span-->
+                                    </div>
+                                    <!--/row-->
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">国家:</label>
+                                                <div class="col-md-9">
+                                                    <p class="form-control-static">
+                                                        <%=user.country%>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--/span-->
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">城市:</label>
+                                                <div class="col-md-9">
+                                                    <p class="form-control-static">
+                                                        <%=user.city%>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--/span-->
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="form-group col-sm-12 modal-footer" style="text-align: center;">
+                                <div class="form-group col-sm-2 pull-right" style="text-align:right">
+                                    <a href="#" class="btn btn-default" data-dismiss="modal">关闭</a> 
+                                </div>
+                                <div class="form-group col-sm-2 pull-right" style="text-align:right">
+                                    <button type="button" onclick="compileUserInfos()" id="compileUserInfoBtn" class="btn btn-success">编辑</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+            </div>
+        </div>
+        <!--查看用户详细信息的modal结束-->
         <div id="loginWrapper">
             <p id="info">正在连接服务器...</p>
         </div>
@@ -182,7 +373,73 @@
             $('#friendListWrapper').css('display','none');
             $('#groupListWrapper').css('display','block');
           });
-
+          //下方的联系人和设置部分的切换
+          $('#changeContact').on('click',function(){
+            $('#panelBody-contact').css('display','block');
+            $('#panelBody-set').css('display','none');
+          });
+          $('#changeSet').on('click',function(){
+            $('#panelBody-contact').css('display','none');
+            $('#panelBody-set').css('display','block');
+          });
+          //点击编辑按钮时要执行的函数
+          function compileUserInfos(){
+            //关闭查看用户信息的模态框
+             $('#lookUserInfoModel').modal('hide');
+            //打开编辑用户信息的模态框
+             $('#compileUserInfoModel').modal('show');
+          }
+          //点击提交按钮时进行数据提交
+          function submitUserInfos(){
+                var queryData = {};
+                if(!$('#username').val()){
+                    alert('用户名不能为空');
+                    return false;
+                }else{
+                    queryData.username = $('#username').val();
+                }
+                if(!$('#phone').val()){
+                    alert('手机号不能为空');
+                    return false;
+                }else{
+                    queryData.phone = $('#phone').val();
+                }
+                if(!$('#email').val()){
+                    alert('邮箱不能为空');
+                    return false;
+                }else{
+                    queryData.email = $('#email').val();
+                }
+                if(!$('#country').val()){
+                    alert('所在国家不能为空');
+                    return false;
+                }else{
+                    queryData.country = $('#country').val();
+                }
+                if(!$('#city').val()){
+                    alert('用户名不能为空');
+                    return false;
+                }else{
+                    queryData.city = $('#city').val();
+                }
+                $.ajax({
+                    type:'post',
+                    dataType:'json',
+                    data:queryData,
+                    url:'/compileUserInfo',
+                    success:function(data){
+                        if(data.status == 200){
+                            alert(data.msg);
+                            $('#compileUserInfoModel').modal('hide');
+                        }else{
+                            alert(data.msg);
+                        }
+                    },
+                    error:function(e){
+                        alert(e);
+                    },
+                })
+          }
         </script>
         <script src="/javascripts/hichat.js"></script>
 

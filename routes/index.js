@@ -94,7 +94,20 @@ router.post('/login', function(req, res, next) {
 
   })
 });
+//保存修改后的用户信息
+router.post('/compileUserInfo',function(req,res,next){
+  var username = req.body.username;
+  var oldValue = {username:req.body.username};
+  var newValue = {$set:{username:req.body.username,mail:req.body.mail,phone:req.body.phone,country:req.body.country,city:req.body.city}};
 
+  User.update(oldValue,newValue,function(err,result){
+    if(err){
+      res.send({status:8000,msg:"编辑用户信息失败"});
+    }else{
+      res.send({status:200, msg:"编辑用户信息成功"});
+    }
+  })
+})
 
 //发消息，然后存入到数据库中
 router.post('/postmsg', function(req, res, next) {

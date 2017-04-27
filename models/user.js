@@ -14,7 +14,8 @@ var UserSchema = mongoose.Schema({
 	mail    : String,
 	signature:String,
 	country : String,
-	city    : String
+	city    : String,
+	phone   : Number,
 });
 
 //定义了一个User集合(表)
