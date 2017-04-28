@@ -29,7 +29,7 @@ body{
     margin-top:6%;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
-    border-radius: 5px;;
+    border-radius: 5px;
 }
 
 #loginWrapper {
@@ -66,7 +66,7 @@ body{
 .controls {
     height: 18%;
     position: relative;
-    background-color: #C4BDB3;
+    background:rgba(196,189,179,.5);
     -webkit-border-radius:inherit;
     -moz-border-radius:inherit;
     border-radius:inherit;

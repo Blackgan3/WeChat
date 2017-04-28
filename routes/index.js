@@ -64,7 +64,7 @@ router.post('/reg', function(req, res, next) {
 //进入登陆
 router.get('/login', function(req, res, next) {
 
-  //取出所有的微博,显示
+  //取出所有的,显示
     res.render('login');
 });
 //登录操作
@@ -107,8 +107,20 @@ router.post('/compileUserInfo',function(req,res,next){
       res.send({status:200, msg:"编辑用户信息成功"});
     }
   })
-})
+});
+//进行保存修改密码的操作
+router.post('/modifyPassword',function(req,res,next){
+  var newPassword = req.body.newPassword,
+      username    = req.body.username;
+  User.update({username:username},{$set:{password:newPassword}},function(err,result){
+      if(err){
+        res.send({status:8000,msg:"修改用户密码失败"});
+      }else{
+        res.send({status:200,msg:"修改用户密码成功"});
+      }
+  });
 
+})
 //发消息，然后存入到数据库中
 router.post('/postmsg', function(req, res, next) {
   //处理发送的微博
