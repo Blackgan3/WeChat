@@ -10,13 +10,13 @@ window.onload = function() {
     var sayto    = '';
     var chatType = '';
     var hichat = new HiChat();
-    hichat.init();
+    hichat.init(chatType);
 };
 var HiChat = function() {
     this.socket = null;
 };
 HiChat.prototype = {
-    init: function() {
+    init: function(chatType) {
         var that = this;
         this.socket = io.connect();
         //当前进入主页,进行socket.io连接
@@ -51,7 +51,7 @@ HiChat.prototype = {
         //发送消息
         this.socket.on('newMsg', function(msg, color, Afromto,Asayto) {
             //判断私聊对象是否是当前客户端如果是则进入处理流程
-            console.log(Asayto,USERNAME); 
+            
             if(Asayto == USERNAME){
                 //判断当前客户端聊天私聊窗口是否是发来消息的用户,如果是，则更新当前聊天窗口的信息
                 if(sayto==Afromto){
@@ -209,8 +209,8 @@ HiChat.prototype = {
                 //判断当前要添加的用户是否已经是自己的好友
                 $.post('/judgeFriend',{master:USERNAME,friend:target.innerHTML},
                     function(data,status){
-                        if(data.status == 300){
-                            alert(data.msg);
+                        if(data.status == 200){
+                            console.log(data);
                         }else{
                             that.socket.emit('sendFriendReq',target.innerHTML,USERNAME);
                         }
