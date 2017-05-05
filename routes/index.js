@@ -212,7 +212,7 @@ router.post('/getFriList',function(req,res,next){
 
 //判断当前用户请求的对象是否已经是好友了
 router.post('/judgeFriend',function(req,res,next){
-  FriendsList.findOne({master:req.body.master,friend:req.body.friend},function (error,friendsList){
+  FriendsList.find({master:req.body.master,friend:req.body.friend},function (error,friendsList){
       if(friendsList){
         res.send({status:300,msg:"该好友已经存在了"});
       }else{

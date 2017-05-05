@@ -52,6 +52,8 @@ function searchMsgList(pi,ps){
                     }
                     crhtml += '</td>'  
                     crhtml += '<td>';
+                    crhtml += '<a href=>删除</a> &nbsp;&nbsp;&nbsp;';
+                    crhtml += '<a href=>编辑</a>';
                     crhtml += '</td>';                  
                     crhtml += '</tr>';
 

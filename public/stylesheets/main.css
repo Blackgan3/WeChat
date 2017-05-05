@@ -8,6 +8,16 @@ body{
     -webkit-background-size:100% 100%;
     background-size:100% 100%;
 }
+#historyMsg p {
+    position:relative;
+    width:150px;
+    height:35px;
+    line-height: 35px;
+    left: -180px;
+    background: #44a061;
+    border-radius:5px; /* 圆角 */
+    margin:30px auto 0;
+}
 /*好友列表部分样式*/
 .friendListBox{
     float: left;
