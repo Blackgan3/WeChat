@@ -84,7 +84,7 @@
                                         <!--设置部分-->
                                         <ul class=" list-group" id="setUl">    
 
-                                            <li class="list-group-item" id="tenNaruto" onclick="openPasswordChange()">修改密码 <span class="pull-right">></span></li>             
+                                            <li class="list-group-item" style="cursor:pointer;" id="tenNaruto" onclick="openPasswordChange()">修改密码 <span class="pull-right">></span></li>
                                         </ul>
                                     </div>
                                 </div>                                
@@ -175,28 +175,29 @@
                             <!-- /.box-header -->
                             <!-- form start -->
                             <form class="form-horizontal" method="post"  id="compileBusinessForm"  enctype="multipart/form-data" role="form" >
-                                <div class="form-group col-sm-6 ">
-                                    <label for="inputEmail3" class="col-sm-4  control-label">用户名<span style="color:red;">*</span>:</label>
-                                    <div class="col-sm-8 ">
-                                        <input type="text" required class="form-control" name="name" id="username"  placeholder="请输入用户名"  maxlength="15" data-reg="^[A-Za-z\u4e00-\u9fa5]{1,15}$" data-reg-error="用户名格式不对">
-                                    </div>
-                                </div>
+
                                 <div class="form-group col-sm-6 ">
                                     <label for="inputEmail3" class="col-sm-4  control-label">密码<span style="color:red;">*</span>:</label>
                                     <div class="col-sm-8 ">
-                                        <input type="text" required class="form-control" name="name" id="password"  placeholder=""  maxlength="15" data-reg="^[A-Za-z\u4e00-\u9fa5]{1,15}$" value="******" disabled>
+                                        <input type="text" required class="form-control" name="name" id="lookPassword"  placeholder=""  maxlength="15" data-reg="^[A-Za-z\u4e00-\u9fa5]{1,15}$" value="******" disabled>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-6 ">
                                     <label for="inputPassword3" class="col-sm-4  control-label">用户手机号<span style="color:red;">*</span>:</label>
                                     <div class="col-sm-8 ">
-                                        <input type="text" class="form-control" name="phone" id="phone" required placeholder="请输入手机号"  data-reg="^1[34578]\d{9}$" data-reg-error="手机号格式不对">
+                                        <input type="text" value="<%=user.phone%>" class="form-control" name="phone" id="lookPhone" required placeholder="请输入手机号"  data-reg="^1[34578]\d{9}$" data-reg-error="手机号格式不对">
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-6 ">
+                                    <label for="inputPassword3" class="col-sm-4  control-label">个性签名<span style="color:red;">*</span>:</label>
+                                    <div class="col-sm-8 ">
+                                        <input type="text" value="<%=user.signature%>" class="form-control" name="lookSignature" id="lookSignature" required placeholder="请输入个性签名"  data-reg="^[\u4e00-\u9fa5]+$" data-reg-error="个性签名格式不对">
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-6">
                                     <label for="inputPassword3" class="col-sm-4 control-label">邮箱<span style="color:red;">*</span>:</label>
                                     <div class="col-sm-8">
-                                        <input type="text" class="form-control" name="broker"  required id="email"  maxlength="10" data-reg="^[A-Za-z\u4e00-\u9fa5]{1,10}$" data-reg-error="对接人格式不对">
+                                        <input type="text" value="<%=user.mail%>" class="form-control" name="broker"  required id="lookEmail"  maxlength="10" data-reg="^[A-Za-z\u4e00-\u9fa5]{1,10}$" data-reg-error="对接人格式不对">
                                     </div>
                                 </div>
                 
@@ -204,15 +205,15 @@
                                 <div class="form-group col-sm-6">
                                     <label for="inputEmail3" class="col-sm-4 control-label">所在国家<span style="color:red;">*</span> :</label>
                                     <div class="col-sm-8">
-                                        <input type="text" required name="accountName" class="form-control" id="country" placeholder="请输入所在国家"
-                                         maxlength="15" data-reg="^[A-Za-z\u4e00-\u9fa5]{1,15}$" data-reg-error="机构账户名格式不对">
+                                        <input type="text" required name="lookCountry" class="form-control" id="lookCountry" placeholder="请输入所在国家"
+                                         maxlength="21" value="<%=user.country%>" data-reg="^[A-Za-z\u4e00-\u9fa5]+$" data-reg-error="国家名格式不对">
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-6">
                                     <label for="inputEmail3" class="col-sm-4 control-label">所在城市<span style="color:red;">*</span> :</label>
                                     <div class="col-sm-8">
-                                        <input type="text" required name="accountNumber" class="form-control" id="city" placeholder="请输入所在城市"
-                                        data-reg="^[0-9]{10,20}$" data-reg-error="机构账户号格式不正确" maxlength="20">
+                                        <input type="text" value="<%=user.city%>" required name="lookCity" class="form-control" id="lookCity" placeholder="请输入所在城市"
+                                        data-reg="^[\u4e00-\u9fa5]{10,20}$" data-reg-error="城市名格式不正确" maxlength="20">
                                     </div>
                                 </div>
                                  
@@ -358,19 +359,19 @@
                                 <div class="form-group col-sm-12 ">
                                     <label for="inputEmail3" class="col-sm-4  control-label">原密码:<span style="color:red;">*</span>:</label>
                                     <div class="col-sm-8 ">
-                                        <input type="text" required class="form-control" name="name" id="password"  placeholder="原密码不能为空"  maxlength="15" data-reg="^[A-Za-z\u4e00-\u9fa5]{1,15}$" >
+                                        <input type="text" required class="form-control" name="oldPassword" id="oldPassword"  placeholder="原密码不能为空"  maxlength="15" data-reg="^[A-Za-z\u4e00-\u9fa5]{1,15}$" >
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-12 ">
-                                    <label for="inputEmail3" class="col-sm-4  control-label">新密码:<span style="color:red;">*</span>:</label>
+                                    <label for="newPassword" class="col-sm-4  control-label">新密码:<span style="color:red;">*</span>:</label>
                                     <div class="col-sm-8 ">
-                                        <input type="text" required class="form-control" name="name" id="password"  placeholder="请输入新密码"  maxlength="15" data-reg="^[A-Za-z\u4e00-\u9fa5]{1,15}$" >
+                                        <input type="text" required class="form-control" name="newPassword" id="newPassword"  placeholder="请输入新密码"  maxlength="15" data-reg="^[A-Za-z\u4e00-\u9fa5]{1,15}$" >
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-12 ">
-                                    <label for="inputEmail3" class="col-sm-4  control-label">重新输入新密码:<span style="color:red;">*</span>:</label>
+                                    <label for="repeatNewPassword" class="col-sm-4  control-label">重新输入新密码:<span style="color:red;">*</span>:</label>
                                     <div class="col-sm-8 ">
-                                        <input type="text" required class="form-control" name="name" id="password"  placeholder="请重新输入新密码"  maxlength="15" data-reg="^[A-Za-z\u4e00-\u9fa5]{1,15}$">
+                                        <input type="text" required class="form-control" name="repeatNewPassword" id="repeatNewPassword"  placeholder="请重新输入新密码"  maxlength="15" data-reg="^[A-Za-z\u4e00-\u9fa5]{1,15}$">
                                     </div>
                                 </div>                                                                
                                  
@@ -393,6 +394,30 @@
         </div>
         </div>
         <!--修改用户密码的模态框结束-->
+        <!--对好友右键进行操作的模态框开始-->
+        <div class="modal fade" id="deleteUserModel"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content" >
+                    <div class="modal-header">
+                        <a class="close" data-dismiss="modal">×</a>
+                        <h5>对该用户进行操作</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="form-group col-sm-12 modal-footer" style="text-align: center;">
+                                <div class="form-group col-sm-6 pull-left" style="text-align:right">
+                                    <a type="button" onclick="modifyPassword()" id="compileUserInfoBtn" class="btn btn-success">删除该好友</a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!--对好友右键进行操作的模态框结束-->
         <div id="loginWrapper">
             <p id="info">正在连接服务器...</p>
         </div>
@@ -441,41 +466,58 @@
           function compileUserInfos(){
             //关闭查看用户信息的模态框
              $('#lookUserInfoModel').modal('hide');
-            //打开编辑用户信息的模态框
+            //打开编辑用户信息的模态框，并对编辑模态框进行信息渲染
              $('#compileUserInfoModel').modal('show');
+             lookUserInfo(USERNAME);
+          }
+          //点击编辑信息渲染编辑模态框
+          function lookUserInfo(USERNAME) {
+              $.ajax({
+                  type:'post',
+                  url :'/lookUserInfo',
+                  dataType:'json',
+                  data:{username:USERNAME},
+                  success:function(data){
+
+                  },
+                  error:function(error){
+
+                  }
+              })
           }
           //点击提交按钮时进行数据提交
           function submitUserInfos(){
                 var queryData = {};
-                if(!$('#username').val()){
-                    alert('用户名不能为空');
-                    return false;
-                }else{
-                    queryData.username = $('#username').val();
-                }
-                if(!$('#phone').val()){
+                queryData.username = USERNAME;
+                if(!$('#lookPhone').val()){
                     alert('手机号不能为空');
                     return false;
                 }else{
-                    queryData.phone = $('#phone').val();
+                    queryData.phone = $('#lookPhone').val();
                 }
-                if(!$('#email').val()){
+                if(!$('#lookEmail').val()){
                     alert('邮箱不能为空');
                     return false;
                 }else{
-                    queryData.email = $('#email').val();
+                    queryData.mail = $('#lookEmail').val();
                 }
-                if(!$('#country').val()){
+                if(!$('#lookCountry').val()){
                     alert('所在国家不能为空');
                     return false;
                 }else{
-                    queryData.country = $('#country').val();
+                    queryData.country = $('#lookCountry').val();
                 }
-                if(!$('#city').val()){
-                    alert('用户名不能为空');
+                  if(!$('#lookSignature').val()){
+                      alert('个性签名不能为空');
+                      return false;
+                  }else{
+                      queryData.signature = $('#lookSignature').val();
+                  }
+                if(!$('#lookCity').val()){
+                    alert('城市不能为空');
                     return false;
                 }else{
-                    queryData.city = $('#city').val();
+                    queryData.city = $('#lookCity').val();
                 }
                 $.ajax({
                     type:'post',
@@ -491,7 +533,8 @@
                         }
                     },
                     error:function(e){
-                        alert(e);
+                        alert("修改用户个人信息成功");
+                        $('#compileUserInfoModel').modal('hide');
                     },
                 })
           }

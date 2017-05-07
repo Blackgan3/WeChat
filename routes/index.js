@@ -98,13 +98,14 @@ router.post('/login', function(req, res, next) {
 router.post('/compileUserInfo',function(req,res,next){
   var username = req.body.username;
   var oldValue = {username:req.body.username};
-  var newValue = {$set:{username:req.body.username,mail:req.body.mail,phone:req.body.phone,country:req.body.country,city:req.body.city}};
+  var newValue = {$set:{username:req.body.username,mail:req.body.mail,phone:req.body.phone,country:req.body.country,city:req.body.city,signature:req.body.signature}};
 
-  User.update(oldValue,newValue,function(err,result){
-    if(err){
+  User.update(oldValue,newValue,function(error,result){
+    if(error){
       res.send({status:8000,msg:"编辑用户信息失败"});
     }else{
-      res.send({status:200, msg:"编辑用户信息成功"});
+      res.send({status:200,msg:"编辑用户信息成功"});
+      consle.log(result);
     }
   })
 });
@@ -120,7 +121,7 @@ router.post('/modifyPassword',function(req,res,next){
       }
   });
 
-})
+});
 //发消息，然后存入到数据库中
 router.post('/postmsg', function(req, res, next) {
   //处理发送的微博
@@ -178,6 +179,14 @@ router.get('/getOnLineUser',function(req,res,next){
       }
     });
 });
+//查看当前用户信息
+router.post('/lookUserInfo',function(req,res,next){
+    var username = req.body.username;
+    User.findOne({username:username},function(error,user){
+        res.send({status:200,user:user});
+    })
+});
+
 //--------------------好友处理方面----------------------------------
 //发送好友请求，将好友请求写进对方的数据库中
 router.post('/saveFriRelation', function(req, res, next) {
@@ -212,11 +221,12 @@ router.post('/getFriList',function(req,res,next){
 
 //判断当前用户请求的对象是否已经是好友了
 router.post('/judgeFriend',function(req,res,next){
-  FriendsList.find({master:req.body.master,friend:req.body.friend},function (error,friendsList){
+  FriendsList.findOne({master:req.body.master,friend:req.body.friend},function (error,friendsList){
+      console.log(friendsList);
       if(friendsList){
-        res.send({status:300,msg:"该好友已经存在了"});
+        res.send({status:8000,msg:"当前用户已是你的好友"});
       }else{
-        res.send({status:200,msg:"用户还没有该好友"});
+        res.send({status:200,msg:"当前用户还不是你的好友"});
       }
   })
 })

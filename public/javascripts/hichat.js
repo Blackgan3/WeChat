@@ -10,13 +10,13 @@ window.onload = function() {
     var sayto    = '';
     var chatType = '';
     var hichat = new HiChat();
-    hichat.init();
+    hichat.init(chatType);
 };
 var HiChat = function() {
     this.socket = null;
 };
 HiChat.prototype = {
-    init: function() {
+    init: function(chatType) {
         var that = this;
         this.socket = io.connect();
         //当前进入主页,进行socket.io连接
@@ -106,10 +106,20 @@ HiChat.prototype = {
                 $.post('/saveFriRelation',{master:fromOne,friend:toOne},
                     function(data,status){
                         alert(data.msg);
+                        //同意了好友请求之后重新渲染好友列表
+                        $.post('/getFriList',{master:USERNAME},
+                            function(data,status){
+                                console.log(data);
+                                that._friList(data);
+                            }
+                        );
                     }
                 );
             }
         });
+        document.oncontextmenu = function(e){
+            e.preventDefault();
+        };
         //发送消息按钮绑定事件
         document.getElementById('sendBtn').addEventListener('click', function() {
             var messageInput = document.getElementById('messageInput'),
@@ -118,7 +128,6 @@ HiChat.prototype = {
             messageInput.value = '';
             messageInput.focus();
             if (msg.trim().length != 0) {
-                
                 //将发送的信息存入数据库
                 console.log(sayto);
                 $.ajax({
@@ -209,9 +218,9 @@ HiChat.prototype = {
                 //判断当前要添加的用户是否已经是自己的好友
                 $.post('/judgeFriend',{master:USERNAME,friend:target.innerHTML},
                     function(data,status){
-                        if(data.status == 300){
+                        if(data.status == 8000){
                             alert(data.msg);
-                        }else{
+                        }else if (data.status == 200){
                             that.socket.emit('sendFriendReq',target.innerHTML,USERNAME);
                         }
                     }
@@ -220,17 +229,24 @@ HiChat.prototype = {
             };
         }, false);
         //给好友列表中的每一个好友绑定点击事件
-        document.getElementById('friendListWrapper').addEventListener('click',function(e){
+        document.getElementById('friendListWrapper').addEventListener('mousedown',function(e){
             var target = e.target;
-            if(target.nodeName.toLowerCase() == 'li'){
-                //将进行一系列改变，来将聊天窗口变成单聊窗口
-                if(confirm("确定要私聊"+target.innerHTML+"吗？")){
-                    //进行私聊处理
-                    sayto = target.innerHTML;
-                    $('#chatFrame').css('display','block');
-                    that._privateChat(target.innerHTML,USERNAME);
+            e.preventDefault();
+            if(e.button == 0){
+                if(target.nodeName.toLowerCase() == 'li'){
+                    //将进行一系列改变，来将聊天窗口变成单聊窗口
+                    if(confirm("确定要私聊"+target.innerHTML+"吗？")){
+                        //进行私聊处理
+                        sayto = target.innerHTML;
+                        $('#chatFrame').css('display','block');
+                        that._privateChat(target.innerHTML,USERNAME);
+                    }
                 }
+            }else if(e.button == 2){
+                //执行右键删除操作
+                $('#deleteUserModel').modal('show');
             }
+
         });
         //给群组列表中的每一个群组绑定点击事件
         document.getElementById('groupListWrapper').addEventListener('click',function(e){
