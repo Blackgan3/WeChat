@@ -16,6 +16,7 @@ var UserSchema = mongoose.Schema({
 	country : String,
 	city    : String,
 	phone   : Number,
+	disabled: Boolean,
 });
 
 //定义了一个User集合(表)

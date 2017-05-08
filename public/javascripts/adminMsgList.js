@@ -52,8 +52,8 @@ function searchMsgList(pi,ps){
                     }
                     crhtml += '</td>'  
                     crhtml += '<td>';
-                    crhtml += '<a href=>删除</a> &nbsp;&nbsp;&nbsp;';
-                    crhtml += '<a href=>编辑</a>';
+                    crhtml += '<a  onclick="deleteMsg('+obj[i].id+')" >删除</a> &nbsp;&nbsp;&nbsp;';
+                    crhtml += '<a  onclick="lookMsgDetail('+obj[i].id+')">编辑</a>';
                     crhtml += '</td>';                  
                     crhtml += '</tr>';
 
@@ -137,4 +137,64 @@ function switchAlreadyPage(){
 function switchAlreadySize(){
     var options=$("#sec option:selected");
     searchMsgList( 0,options.val());
+}
+
+//删除消息的函数
+function deleteMsg(id) {
+    var id = id;
+    //发送请求，去后台删除该信息
+    $.ajax({
+        type:'post',
+        url :'/deleteMsg',
+        dataType:'json',
+        data:{
+            id:id
+        },
+        success:function(data){
+            alert(data.msg);
+        },
+        error:function(e){
+            alert(e);
+        }
+    })
+}
+//编辑消息前的查看消息的函数
+function lookMsgDetail(id) {
+    var id = id;
+    $.ajax({
+        type:'post',
+        url:'/lookMsgDetail',
+        dataType:'json',
+        data:{id:id},
+        success:function(data){
+            //做渲染模态框的处理
+            var msg = data.msg;
+            $('#adminlookFromto').val(msg.username);
+            $('#adminLookContent').val(msg.content);
+            $('#adminLookSayto').val(msg.sayto);
+            $('#adminCompileMsgDetailModel').modal('show');
+        },
+        error:function(e){
+            alert(e);
+        }
+    })
+}
+//编辑消息的函数
+function deleteMsg(id) {
+    var id = id;
+    //发送请求，去后台删除该信息
+    $.ajax({
+        type:'post',
+        url :'/compileMsg',
+        dataType:'json',
+        data:{
+            id:id
+        },
+        success:function(data){
+            alert(data.msg);
+        },
+        error:function(e){
+            alert(e);
+        }
+    })
 }

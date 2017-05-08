@@ -1,177 +1,243 @@
-
 <html lang="en">
 <head>
- <meta charset="utf-8" />
- <link rel="icon" type="image/png" href="/images/favicon.ico">
- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="utf-8"/>
+    <link rel="icon" type="image/png" href="/images/favicon.ico">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 
- <title>用户聊天信息列表</title>
+    <title>用户聊天信息列表</title>
 
- <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
- <meta name="viewport" content="width=device-width" />
-
-
- <!-- Bootstrap core CSS     -->
- <link href="/stylesheets/bootstrap.min.css" rel="stylesheet" />
-
- <!-- Animation library for notifications   -->
- <link href="/stylesheets/animate.min.css" rel="stylesheet"/>
-
- <!--  Light Bootstrap Table core CSS    -->
- <link href="/stylesheets/light-bootstrap-dashboard.css" rel="stylesheet"/>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'/>
+    <meta name="viewport" content="width=device-width"/>
 
 
- <!--  CSS for Demo Purpose, don't include it in your project     -->
+    <!-- Bootstrap core CSS     -->
+    <link href="/stylesheets/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- Animation library for notifications   -->
+    <link href="/stylesheets/animate.min.css" rel="stylesheet"/>
+
+    <!--  Light Bootstrap Table core CSS    -->
+    <link href="/stylesheets/light-bootstrap-dashboard.css" rel="stylesheet"/>
 
 
- <!--     Fonts and icons     -->
- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
- <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
- <link href="/stylesheets/pe-icon-7-stroke.css" rel="stylesheet" />
+    <!--  CSS for Demo Purpose, don't include it in your project     -->
+
+
+    <!--     Fonts and icons     -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+    <link href="/stylesheets/pe-icon-7-stroke.css" rel="stylesheet"/>
 </head>
 <body>
 
 <div class="wrapper">
- <div class="sidebar" data-color="purple" data-image="assets/img/sidebar-5.jpg">
+    <div class="sidebar" data-color="purple" data-image="assets/img/sidebar-5.jpg">
 
-  <!--   you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple" -->
+        <!--   you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple" -->
 
 
-  <div class="sidebar-wrapper">
-   <div class="logo">
-    <a href="http://www.creative-tim.com" class="simple-text">
-     weChat后台管理系统
-    </a>
-   </div>
+        <div class="sidebar-wrapper">
+            <div class="logo">
+                <a href="http://www.creative-tim.com" class="simple-text">
+                    weChat后台管理系统
+                </a>
+            </div>
 
-   <ul class="nav">
-    <li>
-     <a href="/adminHome">
-      <i class="pe-7s-user"></i>
-      <p>账户详情</p>
-     </a>
-    </li>
-    <li >
-     <a href="/friendList">
-      <i class="pe-7s-note2"></i>
-      <p>好友列表</p>
-     </a>
-    </li>
-    <li class="active">
-     <a href="/msgList">
-      <i class="pe-7s-note2"></i>
-      <p>聊天信息</p>
-     </a>
-    </li>
-    <li>
-     <a href="maps.html">
-      <i class="pe-7s-map-marker"></i>
-      <p>当前位置</p>
-     </a>
-    </li>
-   </ul>
-  </div>
- </div>
-
- <div class="main-panel">
-  <nav class="navbar navbar-default navbar-fixed">
-   <div class="container-fluid">
-    <div class="navbar-header">
-     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
-      <span class="sr-only">Toggle navigation</span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-     </button>
-     <a class="navbar-brand" href="#">聊天信息列表</a>
+            <ul class="nav">
+                <li>
+                    <a href="/adminHome">
+                        <i class="pe-7s-user"></i>
+                        <p>账户详情</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="/friendList">
+                        <i class="pe-7s-note2"></i>
+                        <p>好友列表</p>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="/msgList">
+                        <i class="pe-7s-note2"></i>
+                        <p>聊天信息</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="maps.html">
+                        <i class="pe-7s-map-marker"></i>
+                        <p>当前位置</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
-    <div class="collapse navbar-collapse">
-     <ul class="nav navbar-nav navbar-left">
-      <li>
-       <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-        <i class="fa fa-dashboard"></i>
-       </a>
-      </li>
-      <li class="dropdown">
-       <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-        <i class="fa fa-globe"></i>
-        <b class="caret"></b>
-        <span class="notification">5</span>
-       </a>
-       <ul class="dropdown-menu">
-        <li><a href="#">Notification 1</a></li>
-        <li><a href="#">Notification 2</a></li>
-        <li><a href="#">Notification 3</a></li>
-        <li><a href="#">Notification 4</a></li>
-        <li><a href="#">Another notification</a></li>
-       </ul>
-      </li>
-      <li>
-       <a href="">
-        <i class="fa fa-search"></i>
-       </a>
-      </li>
-     </ul>
 
-    </div>
-   </div>
-  </nav>
+    <div class="main-panel">
+        <nav class="navbar navbar-default navbar-fixed">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target="#navigation-example-2">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">聊天信息列表</a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-left">
+                        <li>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-dashboard"></i>
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-globe"></i>
+                                <b class="caret"></b>
+                                <span class="notification">5</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Notification 1</a></li>
+                                <li><a href="#">Notification 2</a></li>
+                                <li><a href="#">Notification 3</a></li>
+                                <li><a href="#">Notification 4</a></li>
+                                <li><a href="#">Another notification</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
 
 
-  <div class="content">
-   <div class="container-fluid">
-    <div class="row">
-     <div class="col-md-12">
-        <div class="card">
-         <div class="header">
-          <p class="category" style="font-size: 16px;color: #6dbd1d;">当前系统的所有聊天内容</p>
-          <form class="form-search">
-            <label>发送消息人:</label>
-            <input type="text" id="sendMsg" class="input-medium search-query">
-            <label>接受消息人:</label>
-            <input type="text" id="acceptMsg" class="input-medium search-query">         
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <p class="category" style="font-size: 16px;color: #6dbd1d;">当前系统的所有聊天内容</p>
+                                <form class="form-search">
+                                    <label>发送消息人:</label>
+                                    <input type="text" id="sendMsg" class="input-medium search-query">
+                                    <label>接受消息人:</label>
+                                    <input type="text" id="acceptMsg" class="input-medium search-query">
 
-            <button type="button" class="btn" onclick="searchMsgList(0,10)" id="searchMsg">搜索</button>
+                                    <button type="button" class="btn" onclick="searchMsgList(0,10)" id="searchMsg">搜索
+                                    </button>
 
-          </form>
-         </div>
-         <div class="content table-responsive table-full-width">
-          <table class="table table-hover table-striped">
-           <thead>
-           <th>序号</th>
-           <th>姓名</th>
-           <th>内容</th>
-           <th>说给</th>
-           <th>操作</th>
-           </thead>
-           <tbody id="userListTable">
+                                </form>
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <table class="table table-hover table-striped">
+                                    <thead>
+                                    <th>序号</th>
+                                    <th>姓名</th>
+                                    <th>内容</th>
+                                    <th>说给</th>
+                                    <th>操作</th>
+                                    </thead>
+                                    <tbody id="userListTable">
 
-           </tbody>
-          </table>
-         </div>
-           <nav style="text-align: center;" >
-              <span id="alreadyRepay_page">
+                                    </tbody>
+                                </table>
+                            </div>
+                            <nav style="text-align: center;">
+                                <span id="alreadyRepay_page">
 
               </span>
+                                <select name="" id="sec" onchange="switchAlreadySize()">
+                                    <option value="10" selected="selected">10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                    <option value="30">30</option>
+                                </select>
+                            </nav>
 
-              <select name=""  id="sec" onchange="switchAlreadySize()">
-                  <option value="10" selected="selected">10</option>
-                  <option value="15">15</option>
-                  <option value="20">20</option>
-                  <option value="25">25</option>
-                  <option value="30">30</option>
-              </select>
-            </nav>
+                        </div>
 
-         </div>
-
+                    </div>
+                </div>
+            </div>
         </div>
-     </div>
     </div>
-   </div>
-  </div>
+    <!--点击编辑聊天信息时的模态框-->
+    <div class="modal fade" id="adminCompileMsgDetailModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a class="close" data-dismiss="modal">×</a>
+                    <h5>编辑聊天信息</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12 ">
+                            <!-- /.box-header -->
+                            <!-- form start -->
+                            <form class="form-horizontal" method="post" id="compileBusinessForm"
+                                  enctype="multipart/form-data" role="form">
 
- </div>
+                                <div class="form-group col-sm-6 ">
+                                    <label for="inputPassword3" class="col-sm-4  control-label">消息发送者<span
+                                                style="color:red;">*</span>:</label>
+                                    <div class="col-sm-8 ">
+                                        <input type="text" class="form-control" name="adminlookFromto"
+                                               id="adminlookFromto" required placeholder="请输入消息发送者"
+                                               data-reg="^[\u4e00-\u9fa5]+$"
+                                               data-reg-error="输入信息格式不对">
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-6 ">
+                                    <label for="inputPassword3" class="col-sm-4  control-label">消息内容<span
+                                                style="color:red;">*</span>:</label>
+                                    <div class="col-sm-8 ">
+                                        <input type="text" class="form-control"
+                                               name="adminLookContent" id="adminLookContent" required
+                                               placeholder="请输入消息内容"
+                                               data-reg="^[\u4e00-\u9fa5]+$" data-reg-error="消息内容格式不对">
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="inputPassword3" class="col-sm-4 control-label">消息接受者<span
+                                                style="color:red;">*</span>:</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" name="adminLookSayto" placeholder="请输入消息接受者"
+                                               required id="adminLookSayto"
+                                               data-reg="^[A-Za-z\u4e00-\u9fa5]+$" data-reg-error="消息接受者格式不对">
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-sm-12 modal-footer" style="text-align: center;">
+                                    <div class="form-group col-sm-2 pull-right" style="text-align:right">
+                                        <a href="#" class="btn btn-default" data-dismiss="modal">取消</a>
+                                    </div>
+                                    <div class="form-group col-sm-2 pull-right" style="text-align:right">
+                                        <button type="button"  onclick="compileMsgDetail()"
+                                                class="btn btn-success">确定
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--点击编辑聊天信息时的模态框结束-->
 </div>
 
 
@@ -188,24 +254,24 @@
 <!--  Checkbox, Radio & Switch Plugins -->
 <script src="/javascripts/bootstrap-checkbox-radio-switch.js"></script>
 <script>
-$(function(){
-  $('#searchMsg').on('click',function(event){
-    var sendMsg   = $('#sendMsg').val();
-    var acceptMsg = $('#acceptMsg').val();
-    $.ajax({
-      type:'post',
-      dataType:'json',
-      data    : {sendMsg:sendMsg,acceptMsg:acceptMsg},
-      url     :'/msgList',
-      success : function(data){
-        alert('success');
-      },
-      error   : function(error){
-        alert(error);
-      }
-    });
-  })
-})
+    $(function () {
+        $('#searchMsg').on('click', function (event) {
+            var sendMsg = $('#sendMsg').val();
+            var acceptMsg = $('#acceptMsg').val();
+            $.ajax({
+                type: 'post',
+                dataType: 'json',
+                data: {sendMsg: sendMsg, acceptMsg: acceptMsg},
+                url: '/msgList',
+                success: function (data) {
+                    alert('success');
+                },
+                error: function (error) {
+                    alert(error);
+                }
+            });
+        })
+    })
 </script>
 
 
