@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="612ff6cc-8877-4969-943c-88363a85232d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/user.js" afterPath="$PROJECT_DIR$/models/user.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/javascripts/adminMsgList.js" afterPath="$PROJECT_DIR$/public/javascripts/adminMsgList.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/index.js" afterPath="$PROJECT_DIR$/routes/index.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/adminFriendList.ejs" afterPath="$PROJECT_DIR$/views/adminFriendList.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/adminMsgList.ejs" afterPath="$PROJECT_DIR$/views/adminMsgList.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/chatHome.ejs" afterPath="$PROJECT_DIR$/views/chatHome.ejs" />
     </list>
     <list id="43a6488b-ed5f-469d-872e-60e6d4c55237" name="Rejected commit: Default" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -29,8 +24,8 @@
       <file leaf-file-name="adminFriList.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/javascripts/adminFriList.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="33" column="29" lean-forward="false" selection-start-line="33" selection-start-column="17" selection-end-line="33" selection-end-column="29" />
+            <state relative-caret-position="309">
+              <caret line="29" column="35" lean-forward="false" selection-start-line="29" selection-start-column="10" selection-end-line="29" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -69,11 +64,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="adminMsgList.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="adminMsgList.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/javascripts/adminMsgList.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="673">
-              <caret line="187" column="27" lean-forward="true" selection-start-line="187" selection-start-column="27" selection-end-line="187" selection-end-column="27" />
+            <state relative-caret-position="521">
+              <caret line="179" column="6" lean-forward="true" selection-start-line="179" selection-start-column="6" selection-end-line="179" selection-end-column="6" />
               <folding>
                 <marker date="1494243633299" expanded="true" signature="1854:1860" ph=" " />
                 <marker date="1494243633299" expanded="true" signature="1860:1866" ph=" " />
@@ -97,15 +92,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="adminFriendList.ejs" pinned="false" current-in-tab="false">
+      <file leaf-file-name="adminFriendList.ejs" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/views/adminFriendList.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="382">
-              <caret line="249" column="28" lean-forward="true" selection-start-line="153" selection-start-column="7" selection-end-line="249" selection-end-column="28" />
+            <state relative-caret-position="376">
+              <caret line="166" column="53" lean-forward="true" selection-start-line="166" selection-start-column="53" selection-end-line="166" selection-end-column="53" />
               <folding>
-                <element signature="n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
                 <element signature="n#style#0;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#div#1;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -157,6 +150,8 @@
       <find>addFriReq</find>
       <find>好友</find>
       <find>查看用户</find>
+      <find>compileUserBtn</find>
+      <find>adminCompileUserInfoModel</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -173,10 +168,10 @@
         <option value="$PROJECT_DIR$/views/chatHome.ejs" />
         <option value="$PROJECT_DIR$/models/user.js" />
         <option value="$PROJECT_DIR$/public/javascripts/adminFriList.js" />
-        <option value="$PROJECT_DIR$/views/adminFriendList.ejs" />
         <option value="$PROJECT_DIR$/views/adminMsgList.ejs" />
         <option value="$PROJECT_DIR$/routes/index.js" />
         <option value="$PROJECT_DIR$/public/javascripts/adminMsgList.js" />
+        <option value="$PROJECT_DIR$/views/adminFriendList.ejs" />
       </list>
     </option>
   </component>
@@ -407,12 +402,12 @@
       <workItem from="1494081900274" duration="1197000" />
       <workItem from="1494083798887" duration="288000" />
       <workItem from="1494149785298" duration="11370000" />
-      <workItem from="1494211966877" duration="8810000" />
+      <workItem from="1494211966877" duration="9490000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="55092000" />
+    <option name="totallyTimeSpent" value="55772000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-8" width="1936" height="1056" extended-state="6" />
@@ -810,14 +805,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/javascripts/adminFriList.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="33" column="29" lean-forward="false" selection-start-line="33" selection-start-column="17" selection-end-line="33" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/models/message.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="95">
@@ -834,23 +821,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/adminFriendList.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="382">
-          <caret line="249" column="28" lean-forward="true" selection-start-line="153" selection-start-column="7" selection-end-line="249" selection-end-column="28" />
-          <folding>
-            <element signature="n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#div#1;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="662">
           <caret line="355" column="37" lean-forward="false" selection-start-line="355" selection-start-column="34" selection-end-line="355" selection-end-column="37" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/javascripts/adminMsgList.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="521">
+          <caret line="179" column="6" lean-forward="true" selection-start-line="179" selection-start-column="6" selection-end-line="179" selection-end-column="6" />
+          <folding>
+            <marker date="1494243633299" expanded="true" signature="1854:1860" ph=" " />
+            <marker date="1494243633299" expanded="true" signature="1860:1866" ph=" " />
+            <marker date="1494243633299" expanded="true" signature="1866:1872" ph=" " />
+            <marker date="1494243633299" expanded="true" signature="2527:2549" ph="..." />
+            <marker date="1494243633299" expanded="true" signature="3084:3106" ph="..." />
+            <marker date="1494243633299" expanded="true" signature="3987:4020" ph="..." />
+            <marker date="1494243633299" expanded="true" signature="4212:4234" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -870,18 +861,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/javascripts/adminMsgList.js">
+    <entry file="file://$PROJECT_DIR$/public/javascripts/adminFriList.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="673">
-          <caret line="187" column="27" lean-forward="true" selection-start-line="187" selection-start-column="27" selection-end-line="187" selection-end-column="27" />
+        <state relative-caret-position="309">
+          <caret line="29" column="35" lean-forward="false" selection-start-line="29" selection-start-column="10" selection-end-line="29" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/adminFriendList.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="376">
+          <caret line="166" column="53" lean-forward="true" selection-start-line="166" selection-start-column="53" selection-end-line="166" selection-end-column="53" />
           <folding>
-            <marker date="1494243633299" expanded="true" signature="1854:1860" ph=" " />
-            <marker date="1494243633299" expanded="true" signature="1860:1866" ph=" " />
-            <marker date="1494243633299" expanded="true" signature="1866:1872" ph=" " />
-            <marker date="1494243633299" expanded="true" signature="2527:2549" ph="..." />
-            <marker date="1494243633299" expanded="true" signature="3084:3106" ph="..." />
-            <marker date="1494243633299" expanded="true" signature="3987:4020" ph="..." />
-            <marker date="1494243633299" expanded="true" signature="4212:4234" ph="..." />
+            <element signature="n#style#0;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
