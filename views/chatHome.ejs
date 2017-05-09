@@ -132,13 +132,13 @@
 </div>
 <!--好友列表部分结束-->
 <!--中间聊天室部分开始-->
-<div class="wrapper" id="chatFrame">
+<div class="wrapper" id="chatFrame" style="position: relative;">
 
     <div class="banner">
         <h3 id="chatRoomTittle">十影聊天室</h3>
         <span style="color:#636363; display:none" id="status"></span>
     </div>
-    <div id="historyMsg">
+    <div id="historyMsg" >
     </div>
     <div class="controls">
         <div class="items">
@@ -148,6 +148,7 @@
                 <input type="button" value="图片"/>
                 <input id="sendImage" type="file" value="图片"/>
             </label>
+            <input id="shakeBtn" type="button" value="震动" title="clear screen"/>
             <input id="clearBtn" type="button" value="清除" title="clear screen"/>
             <input style="float:right;" id="chatRecords" type="button" value="聊天记录"/>
         </div>
@@ -614,6 +615,8 @@
             }
         })
     }
+
+
 </script>
 <script src="/javascripts/hichat.js"></script>
 

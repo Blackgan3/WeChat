@@ -9,6 +9,7 @@
 window.onload = function() {
     var sayto    = '';
     var chatType = '';
+
     var hichat = new HiChat();
     hichat.init(chatType);
 };
@@ -115,6 +116,12 @@ HiChat.prototype = {
                         );
                     }
                 );
+            }
+        });
+        //处理服务器端发送过来的好友震动
+        this.socket.on('shaking',function(fromTo,sayTo){
+            if(sayTo == USERNAME){
+                that._zd();
             }
         });
         document.oncontextmenu = function(e){
@@ -228,6 +235,12 @@ HiChat.prototype = {
                 //向特定的好友发送好友请求
             };
         }, false);
+        //向特定的好友发送窗口抖动
+        document.getElementById('shakeBtn').addEventListener('click',function(e){
+            var sayto = $('#shakeBtn').data('sayto');
+            that.socket.emit('shakeToFri',USERNAME,sayto);
+
+        });
         //给好友列表中的每一个好友绑定点击事件
         document.getElementById('friendListWrapper').addEventListener('mousedown',function(e){
             var target = e.target;
@@ -240,6 +253,7 @@ HiChat.prototype = {
                         sayto = target.innerHTML;
                         $('#chatFrame').css('display','block');
                         that._privateChat(target.innerHTML,USERNAME);
+                        $('#shakeBtn').data('sayto',target.innerHTML);
                     }
                 }
             }else if(e.button == 2){
@@ -419,5 +433,30 @@ HiChat.prototype = {
         //群聊，将聊天窗口的名字变成群组的名字
         document.getElementById('chatRoomTittle').innerHTML = sayto;
         this._displayGroupNewMsg(principle,'#000',sayto);
+    },
+    //震动窗口的函数
+    _zd:function(){
+        //窗口抖动原理
+        var a=['top','left'];
+        var b=0;
+        var u;
+        var win=$("#chatFrame");
+        function fudu1(){
+            win.css(a[b%2],(b++)%4<2?"0px":"4px");
+            b++;
+            if(b>32){
+                clearInterval(u);
+            }
+        }
+
+/*        win.style[a[b%2]]=(b++)%4<2?"0px":"4px";
+        function fudu() {
+            if (b > 30) {
+                clearInterval(u);
+                b = 0
+            }
+        }*/
+        clearInterval(u);
+        u=setInterval(fudu1,32);
     }
 };

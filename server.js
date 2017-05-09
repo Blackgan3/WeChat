@@ -87,6 +87,10 @@ io.sockets.on('connection', function(socket) {
         socket.broadcast.emit('addUser');
         socket.emit('addUser');
     });
+    //处理好友发送过来的震动
+    socket.on('shakeToFri',function (fromOne, sayTo) {
+        socket.broadcast.emit('shaking',fromOne,sayTo)
+    });
     //接收到发送好友的请求
     socket.on('sendFriendReq',function(toOne,fromOne){
         socket.broadcast.emit('addFriReq',toOne,fromOne);
