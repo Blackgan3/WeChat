@@ -3,7 +3,7 @@ var User = require('../models/user.js');
 var Message = require('../models/message.js');
 var FriendsList = require('../models/friendsList.js');
 var router = express();
-
+var ObjectID = require('mongodb').ObjectID;
 /* GET home page. */
 
 //首页
@@ -329,7 +329,7 @@ router.post('/disabledUser', function (req, res, next) {
 //删除指定的聊天消息
 router.post('/deleteMsg',function(req,res,next){
     var id = req.body.id;
-    Message.remove({id:id},function(err,doc){
+    Message.remove({_id:new ObjectID(id)},function(err,doc){
         if(err){
             res.send({status:8000,msg:"删除信息失败"});
         }else{
@@ -339,21 +339,30 @@ router.post('/deleteMsg',function(req,res,next){
 });
 router.post('/lookMsgDetail',function(req,res,next){
     var id = req.body.id;
-    Message.findOne({id:id},function(err,doc){
+    Message.findOne({_id:new ObjectID(id)},function(err,doc){
         if(err){
             res.send({status:8000,msg:'查看聊天信息失败'});
         }else{
-            res.send({status:200, msg:doc});s
+            res.send({status:200, msg:doc});
         }
     })
 });
 router.post('/compileMsgDetail',function(req,res,next){
     var id = req.body.id;
-    Message.findOne({id:id},function(err,doc){
+    var oldValue = {_id:new ObjectID(id)};
+    var newValue = {
+        $set: {
+            _id: new ObjectID(id),
+            username: req.body.username,
+            content: req.body.content,
+            sayto: req.body.sayto,
+        }
+    };
+    Message.update(oldValue,newValue,function(err,doc){
         if(err){
-            res.send({status:8000,msg:'查看聊天信息失败'});
+            res.send({status:8000,msg:'编辑聊天信息成功'});
         }else{
-            res.send({status:200, msg:doc});
+            res.send({status:200, msg:'编辑聊天信息失败'});
         }
     })
 });

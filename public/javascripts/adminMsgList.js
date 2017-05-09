@@ -29,7 +29,7 @@ function searchMsgList(pi,ps){
                 $('#sec').css('display','none');
             }else{
                 $('#sec').css('display','inline-block');
-                console.log(obj);
+                console.log(obj[0]._id);
                 for(var i = 0;i < j; i++){
                     crhtml += '<tr>';
                     crhtml += '<td>';
@@ -50,10 +50,14 @@ function searchMsgList(pi,ps){
                     if( !(obj[i].sayto == null)){
                         crhtml += obj[i].sayto;
                     }
-                    crhtml += '</td>'  
+                    crhtml += '</td>'  ;
                     crhtml += '<td>';
-                    crhtml += '<a  onclick="deleteMsg('+obj[i].id+')" >删除</a> &nbsp;&nbsp;&nbsp;';
-                    crhtml += '<a  onclick="lookMsgDetail('+obj[i].id+')">编辑</a>';
+                    crhtml += '<a href="javascript:void(0)" onclick="lookMsgDetail(\'';
+                    crhtml += obj[i]._id;
+                    crhtml += '\')">编辑&nbsp;&nbsp;&nbsp;</a>';
+                    crhtml += '<a href="javascript:void(0)" onclick="deleteMsg(\'';
+                    crhtml += obj[i]._id;
+                    crhtml += '\')">删除</a>';
                     crhtml += '</td>';                  
                     crhtml += '</tr>';
 
@@ -152,6 +156,8 @@ function deleteMsg(id) {
         },
         success:function(data){
             alert(data.msg);
+            searchMsgList(0,10);
+
         },
         error:function(e){
             alert(e);
@@ -172,6 +178,7 @@ function lookMsgDetail(id) {
             $('#adminlookFromto').val(msg.username);
             $('#adminLookContent').val(msg.content);
             $('#adminLookSayto').val(msg.sayto);
+            $('#adminCompileMsgBtn').attr('data-id',msg._id);
             $('#adminCompileMsgDetailModel').modal('show');
         },
         error:function(e){
@@ -180,21 +187,47 @@ function lookMsgDetail(id) {
     })
 }
 //编辑消息的函数
-function deleteMsg(id) {
-    var id = id;
+function compileMsgDetail() {
+    var id =$('#adminCompileMsgBtn').data('id');
+    if (!validateForms('#compileMsgForm'))return false;
     //发送请求，去后台删除该信息
+    var queryData = {};
+    queryData.id = id;
+    if (!$('#adminlookFromto').val()) {
+        alert('消息发送者不能为空');
+        return false;
+    } else {
+        queryData.username = $('#adminlookFromto').val();
+    }
+    if (!$('#adminLookContent').val()) {
+        alert('消息内容不能为空');
+        return false;
+    } else {
+        queryData.content = $('#adminLookContent').val();
+    }
+    if (!$('#adminLookSayto').val()) {
+        alert('聊天对象不能为空');
+        return false;
+    } else {
+        queryData.sayto = $('#adminLookSayto').val();
+    }
     $.ajax({
         type:'post',
-        url :'/compileMsg',
+        url :'/compileMsgDetail',
         dataType:'json',
-        data:{
-            id:id
-        },
+        data:queryData,
         success:function(data){
-            alert(data.msg);
+            if (data.status==200){
+                alert("编辑聊天信息成功");
+                $('#adminCompileMsgDetailModel').modal('hide');
+                searchMsgList(0,10);
+            }else{
+                $('#adminCompileMsgDetailModel').modal('hide');
+            }
         },
         error:function(e){
             alert(e);
+            $('#adminCompileMsgDetailModel').modal('hide');
         }
     })
 }

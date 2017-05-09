@@ -6,7 +6,7 @@ var MessageSchema = mongoose.Schema({
 	content    : String,
 	publishTime: Date,
 	sayto      : String,
-})
+});
 
 //定义了一个消息集合(表)
 var Message = mongoose.model('Message',MessageSchema);
