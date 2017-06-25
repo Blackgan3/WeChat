@@ -46,8 +46,8 @@ $(document).ready(function(){
       })
   });
     $('.disabledUserBtn').on('click',function(){
-        //触发删除事件，这时应向后台发送请求去删除这个用户
-        $('#adminCompileUserInfoModel').modal('show');
+        //触发禁用事件
+        //$('#adminCompileUserInfoModel').modal('show');
         var r = confirm("是否确定禁用该用户");
         var username = $(this).data('username');
         if(r){
@@ -60,6 +60,7 @@ $(document).ready(function(){
                 },
                 success: function (data) {
                     alert(data.msg);
+                    window.location.reload();
                 },
                 error: function (error) {
                     alert(error);

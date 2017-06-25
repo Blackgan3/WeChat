@@ -22,6 +22,7 @@ router.get('/reg', function (req, res, next) {
 });
 //注册操作
 router.post('/reg', function (req, res, next) {
+
     //1.查询数据库,判断当前的用户名是否存在
     User.findOne({username: req.body.username}, function (error, user) {
         //用户已经存在
@@ -30,7 +31,6 @@ router.post('/reg', function (req, res, next) {
             error = "该用户名已存在,请重新输入";
         } else if (req.body.password !== req.body.repassword) {
             error = "两次密码输入不一致";
-            //console.log("两次密码输入不一致");
         }
         if (error) {
             //将错误存入session
@@ -44,6 +44,7 @@ router.post('/reg', function (req, res, next) {
         var user = new User({
             username: req.body.username,
             password: req.body.password,
+            userImage:req.body.userImage,
             disabled: false,
         });
 
