@@ -9,14 +9,15 @@ mongoose.connect('mongodb://localhost/weibo',function (error) {
 });
 //定义集合(表)的数据结构  User
 var UserSchema = mongoose.Schema({
-	username: String,
-	password: String,
-	mail    : String,
-	signature:String,
-	country : String,
-	city    : String,
-	phone   : Number,
-	disabled: Boolean,
+	username : String,
+	password : String,
+	userImage: String,
+	mail     : String,
+	signature: String,
+	country  : String,
+	city     : String,
+	phone    : Number,
+	disabled : Boolean,
 });
 
 //定义了一个User集合(表)

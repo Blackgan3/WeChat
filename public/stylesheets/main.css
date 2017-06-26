@@ -13,16 +13,7 @@ body{
 
 }
 /*滚动条样式设置结束*/
-#historyMsg p {
-    position:relative;
-    width:150px;
-    height:35px;
-    line-height: 35px;
-    left: -180px;
-    background: #44a061;
-    border-radius:5px; /* 圆角 */
-    margin:30px auto 0;
-}
+
 /*好友列表部分样式*/
 .friendListBox{
     float: left;
@@ -61,6 +52,41 @@ body{
 }    
 #nickWrapper {
     display: none;
+}
+/*聊天信息的信息条的样式设置*/
+#historyMsg p {
+    clear: both;
+    position:relative;
+    width: 200px;
+    height:auto;
+    line-height: 35px;
+    left: -130px;
+    background: #44a061;
+    border-radius:5px; /* 圆角 */
+    margin:30px auto 0;
+}
+.msg_username{
+    clear: both;
+    float: left;
+    width: auto;
+    padding-left: 5px;
+    padding-right: 5px;
+    -webkit-border-radius:50% 50%;
+    -moz-border-radius:50% 50%;
+    border-radius:50% 50%;
+    background: #c4c020;
+    text-align: center;
+    margin-left: -35px;
+}
+.msg_content{
+    clear: both;
+    float: left;
+    width:auto;
+    background: #44a061;
+    padding: 3px;
+    -webkit-border-radius:6px;
+    -moz-border-radius:6px;
+    border-radius: 6px;
 }
 .banner {
     height: 40px;

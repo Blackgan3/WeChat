@@ -124,13 +124,13 @@ HiChat.prototype = {
                 that._zd();
             }
         });
-        document.oncontextmenu = function(e){
+ /*       document.oncontextmenu = function(e){
             e.preventDefault();
-        };
+        };*/
         //发送消息按钮绑定事件
         document.getElementById('sendBtn').addEventListener('click', function() {
             var messageInput = document.getElementById('messageInput'),
-                msg = messageInput.value,
+                msg = that._showEmoji(messageInput.value),
                 color = document.getElementById('colorStyle').value;
             messageInput.value = '';
             messageInput.focus();
@@ -155,6 +155,7 @@ HiChat.prototype = {
                         }else{
                             that.socket.emit('postMsg', msg, color,USERNAME,sayto);
                             that._displayNewMsg(USERNAME, color,sayto);
+
                         }
                     },
                     error:  function(e){
@@ -164,7 +165,8 @@ HiChat.prototype = {
                 return;
             };
         }, false);
-        document.getElementById('messageInput').addEventListener('keyup', function(e) {
+       //进行绑定keyup事件，判断是否为enter事件
+        /* document.getElementById('messageInput').addEventListener('keyup', function(e) {
             var messageInput = document.getElementById('messageInput'),
                 msg = messageInput.value,
                 color = document.getElementById('colorStyle').value;
@@ -173,7 +175,7 @@ HiChat.prototype = {
                 that.socket.emit('postMsg', msg, color);
                 that._displayNewMsg('我', msg, color);
             };
-        }, false);
+        }, false);*/
         document.getElementById('clearBtn').addEventListener('click', function() {
             document.getElementById('historyMsg').innerHTML = '';
         }, false);
@@ -198,18 +200,20 @@ HiChat.prototype = {
             };
         }, false);
         this._initialEmoji();
+        //给图片按钮绑定事件，点击时将图片panel展示出来
         document.getElementById('emoji').addEventListener('click', function(e) {
             var emojiwrapper = document.getElementById('emojiWrapper');
             emojiwrapper.style.display = 'block';
             e.stopPropagation();
         }, false);
+        //给body绑定事件，作用为来将已经展开的的表情panel关闭
         document.body.addEventListener('click', function(e) {
             var emojiwrapper = document.getElementById('emojiWrapper');
             if (e.target != emojiwrapper) {
                 emojiwrapper.style.display = 'none';
             };
         });
-        //事件委托代理
+        //事件委托代理，点击了表情panel中的某一表情后，将该表情输入到信息框中
         document.getElementById('emojiWrapper').addEventListener('click', function(e) {
             var target = e.target;
             if (target.nodeName.toLowerCase() == 'img') {
@@ -277,6 +281,7 @@ HiChat.prototype = {
             }
         })
     },
+    //初始化表情面板中的所有表情
     _initialEmoji: function() {
         var emojiContainer = document.getElementById('emojiWrapper'),
             docFragment = document.createDocumentFragment();
@@ -307,7 +312,7 @@ HiChat.prototype = {
                     for(var i=0;i<data.msg.length;i++){
                         var msgToDisplay = document.createElement('p');
                         msgToDisplay.style.color = color || '#000';
-                        msgToDisplay.innerHTML = data.msg[i].username + '<span class="timespan"></span>' + data.msg[i].content;
+                        msgToDisplay.innerHTML = '<div class="msg_username">'+data.msg[i].username+'</div><span class="timespan"></span><div class="msg_content">' + data.msg[i].content+'</div>';
                         container.appendChild(msgToDisplay);
                         container.scrollTop = container.scrollHeight;
                     }
@@ -348,6 +353,7 @@ HiChat.prototype = {
             }
         });
     },
+    //根据发送的消息去进行图片信息的渲染
     _displayImage: function(user, imgData, color) {
         var container = document.getElementById('historyMsg'),
             msgToDisplay = document.createElement('p'),
@@ -368,10 +374,12 @@ HiChat.prototype = {
             if (emojiIndex > totalEmojiNum) {
                 result = result.replace(match[0], '[X]');
             } else {
-                result = result.replace(match[0], '<img class="emoji" src="../content/emoji/' + emojiIndex + '.gif" />');//todo:fix this in chrome it will cause a new request for the image
+                result = result.replace(match[0], '<img class="emoji" src="../content/emoji/' + emojiIndex + '.gif" />');
             };
         };
+        console.log(result);
         return result;
+
     },
     //添加用户列表
     _addUserList:function(){
