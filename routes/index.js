@@ -1,5 +1,6 @@
 var express = require('express');
 var User = require('../models/user.js');
+var Avator = require('../models/avatar.js');
 var Message = require('../models/message.js');
 var FriendsList = require('../models/friendsList.js');
 var router = express();
@@ -22,7 +23,6 @@ router.get('/reg', function (req, res, next) {
 });
 //注册操作
 router.post('/reg', function (req, res, next) {
-
     //1.查询数据库,判断当前的用户名是否存在
     User.findOne({username: req.body.username}, function (error, user) {
         //用户已经存在
@@ -38,16 +38,19 @@ router.post('/reg', function (req, res, next) {
             //回到注册页面
             return res.redirect('/reg');
         }
-        console.log(error);
-
         //用户名可以用
         var user = new User({
             username: req.body.username,
             password: req.body.password,
             userImage:req.body.userImage,
-            disabled: false,
+            disabled: false
         });
-
+        //给当前用户随机分配一个默认头像
+        var userIndex = parseInt(Math.random()*(15) + 1);
+        var ava = new Avator({
+            username : req.body.username,
+            avatarUrl: '/images/defaultAvator/'+userIndex+'.jpg'
+        });
         //存入数据库
         user.save(function (error) {
             if (!error) {
@@ -59,9 +62,11 @@ router.post('/reg', function (req, res, next) {
                 console.log("注册失败");
                 return res.redirect('/reg');
             }
-        })
+        });
+        ava.save();
 
     })
+
 });
 //进入登陆
 router.get('/login', function (req, res, next) {
@@ -72,6 +77,7 @@ router.get('/login', function (req, res, next) {
 //登录操作
 router.post('/login', function (req, res, next) {
     //判断用户名是否存在
+    var loginInfo = {};
     User.findOne({username: req.body.username}, function (error, user) {
         if (!user) {
             //用户名不存在
@@ -89,14 +95,20 @@ router.post('/login', function (req, res, next) {
         req.session.success = '登录成功';
         //跳转到首页
         req.session.user = user;
-        if (user.username === 'weChatAdmin') {
-            //如果是管理员登录,就登录到管理员界面
-            res.render('adminHome', {user: user});
-        } else {
-            res.render('chatHome', {user: user});
-        }
+        loginInfo.user = user;
+    });
+    Avator.findOne({username:req.body.username},function(error,userLogo){
+        loginInfo.userLogo = userLogo;
+    });
+    console.log(loginInfo);
+    return false;
+    if (loginInfo.user.username === 'weChatAdmin') {
+        //如果是管理员登录,就登录到管理员界面
+        res.render('adminHome', loginInfo);
+    } else {
+        res.render('chatHome', loginInfo);
+    }
 
-    })
 });
 //保存修改后的用户信息
 router.post('/compileUserInfo', function (req, res, next) {

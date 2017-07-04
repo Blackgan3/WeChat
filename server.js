@@ -11,7 +11,7 @@ var express = require('express'),
     session = require('express-session'),
     routes  = require('./routes/index'),
    /* models = require('./models');
-    Users  = models.Users;*/
+     Users  = models.Users;*/
     //导入设置好的数据模型
     users = [];
 
