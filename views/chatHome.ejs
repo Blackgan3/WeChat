@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="/stylesheets/main.css">
 </head>
 <body>
-
 <div id="main_container" style="display: block;margin-left: 40px;">
     <div class="panel main-panel" id="panel-0"
          style="display: block; transition: -webkit-transform 0.4s cubic-bezier(0, 1, 0, 1); transform: translate3d(0px, 0px, 0px);">
@@ -24,18 +23,15 @@
             <div id="panelBody-0" class="panel_body ">
                 <div id="mainTopAll" cmd="void">
                     <div class="accountHeader">
-                        <div class="avatar_wrap" id="userHead">
+                        <div class="avatar_wrap" id="userHead" style="width: 46px;height: 46px;">
                             <a href="#lookUserInfoModel" data-toggle="modal">
-                                <img src="http://q.qlogo.cn/g?b=qq&amp;nk=1343313258&amp;s=100&amp;t=1492343437056"
+                                <img src="<%=userLogo.avatarUrl%>"
                                      width="40" height="40">
                             </a>
-                            <span id="user_online_state" class="state_online"></span>
+                           <!-- <span id="user_online_state" class="state_online"></span>-->
                         </div>
-
                         <span class="text_ellipsis user_nick"><%= user.username %> </span>
-
                     </div>
-
                 </div>
                 <!--头部和图片部分结束-->
                 <div class="panel selected" id="panel-2" cmd="void">

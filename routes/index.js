@@ -1,3 +1,4 @@
+
 var express = require('express');
 var User = require('../models/user.js');
 var Avator = require('../models/avatar.js');
@@ -43,7 +44,7 @@ router.post('/reg', function (req, res, next) {
             username: req.body.username,
             password: req.body.password,
             userImage:req.body.userImage,
-            disabled: false
+            disabled: false//false为不禁止，代表可用
         });
         //给当前用户随机分配一个默认头像
         var userIndex = parseInt(Math.random()*(15) + 1);
@@ -78,36 +79,46 @@ router.get('/login', function (req, res, next) {
 router.post('/login', function (req, res, next) {
     //判断用户名是否存在
     var loginInfo = {};
-    User.findOne({username: req.body.username}, function (error, user) {
-        if (!user) {
-            //用户名不存在
-            error = "用户名不存在,请先去注册";
-        } else if (req.body.password !== user.password) {
-            error = "密码输入错误";
-        } else if (user.disabled == true) {
-            error = "对不起，该账号已被禁止使用"
-        }
-        if (error) {
-            req.session.error = error;
-            //跳转路由
-            return res.redirect('/login');
-        }
-        req.session.success = '登录成功';
-        //跳转到首页
-        req.session.user = user;
-        loginInfo.user = user;
+    var promise = new Promise(function(resolve, reject) {
+        console.log('Promise');
+        User.findOne({username: req.body.username}, function (error, user) {
+            if (!user) {
+                //用户名不存在
+                error = "用户名不存在,请先去注册";
+            } else if (req.body.password !== user.password) {
+                error = "密码输入错误";
+            } else if (user.disabled == true) {
+                error = "对不起，该账号已被禁止使用"
+            }
+            if (error) {
+                req.session.error = error;
+                //跳转路由
+                return res.redirect('/login');
+            }
+            req.session.success = '登录成功';
+            //跳转到首页
+            req.session.user = user;
+            loginInfo.user = user;
+
+
+            resolve();
+        });
+
     });
-    Avator.findOne({username:req.body.username},function(error,userLogo){
-        loginInfo.userLogo = userLogo;
+    promise.then(function(){
+        Avator.findOne({username:req.body.username},function(error,userLogo){
+            loginInfo.userLogo = userLogo;
+            console.log('Hi!');
+            console.log(loginInfo);
+            // return false;
+            if (loginInfo.user.username === 'weChatAdmin') {
+                //如果是管理员登录,就登录到管理员界面
+                res.render('adminHome', loginInfo);
+            } else {
+                res.render('chatHome', loginInfo);
+            }
+        });
     });
-    console.log(loginInfo);
-    return false;
-    if (loginInfo.user.username === 'weChatAdmin') {
-        //如果是管理员登录,就登录到管理员界面
-        res.render('adminHome', loginInfo);
-    } else {
-        res.render('chatHome', loginInfo);
-    }
 
 });
 //保存修改后的用户信息
