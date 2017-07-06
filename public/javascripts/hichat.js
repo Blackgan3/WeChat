@@ -456,14 +456,6 @@ HiChat.prototype = {
                 clearInterval(u);
             }
         }
-
-/*        win.style[a[b%2]]=(b++)%4<2?"0px":"4px";
-        function fudu() {
-            if (b > 30) {
-                clearInterval(u);
-                b = 0
-            }
-        }*/
         clearInterval(u);
         u=setInterval(fudu1,32);
     }

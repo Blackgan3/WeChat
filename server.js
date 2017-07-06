@@ -1,3 +1,4 @@
+require("babel-polyfill");
 var express = require('express'),
     app = express(),
     path = require('path'),
@@ -9,9 +10,10 @@ var express = require('express'),
     io = require('socket.io').listen(server),
     //导入express-session中间件,用于处理session
     session = require('express-session'),
-    routes  = require('./routes/index'),
+    routes  = require('./controller/index'),
+    upload  = require('./controller/upload'),
    /* models = require('./models');
-    Users  = models.Users;*/
+     Users  = models.Users;*/
     //导入设置好的数据模型
     users = [];
 
@@ -31,6 +33,8 @@ app.use(session({
 //bind the server to the 80 port
 //server.listen(3000);//for local test
 server.listen(process.env.PORT || 4000);//publish to heroku
+app.use('/', routes);
+app.use('/upload',upload);
 //自定义中间件（拦截器）
 app.use(function(req,res,next){
     //将错误显示到模板中(给res.locals设置的属性可以直接用在模板中)
@@ -48,8 +52,7 @@ app.use(function(req,res,next){
     next();
 
 });
-app.use('/', routes);
-// app.use('/friend',routes.friend);
+
 io.sockets.on('connection', function(socket) {
     //new user login
     socket.on('login', function(nickname) {

@@ -1,6 +1,6 @@
 {
   "name": "hichat",
-  "description": "a realtime chat web application",
+  "description": "一个简单的聊天系统框架",
   "version": "0.4.0",
   "main": "server.js",
   "dependencies": {
@@ -18,7 +18,14 @@
     "node": "0.10.x",
     "npm": "1.2.x"
   },
+  "scripts": {
+    "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
+    "start": "npm run build && node dist/server.js"
+  },
   "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-latest": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
     "mongoose": "^4.9.0"
   }
 }
