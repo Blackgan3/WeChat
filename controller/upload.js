@@ -45,7 +45,7 @@ router.post('/uploadAvator', function (req, res, next) {
         console.log(files.userAvator.path);
         Avator.update({username:username},{$set:{avatarUrl: mongoPath}},function(err,result){
         });
-        res.send({status:200,data:'msg'});
+        res.redirect('/login','post');
     });
     //res.send({status:200,data:'msg'});
 });
