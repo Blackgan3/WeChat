@@ -24,30 +24,26 @@
                 <div id="mainTopAll" cmd="void">
                     <div class="accountHeader">
                         <div class="avatar_wrap" id="userHead" style="width: 46px;height: 46px;">
-                            <a href="#lookUserInfoModel" data-toggle="modal">
+                            <a href="#compileUserAvator" data-toggle="modal">
                                 <img src="<%=userLogo.avatarUrl%>"
                                      width="40" height="40">
                             </a>
                            <!-- <span id="user_online_state" class="state_online"></span>-->
                         </div>
-                        <span class="text_ellipsis user_nick"><%= user.username %> </span>
+                        <span class="text_ellipsis user_nick"><a style="text-decoration:none" href="#lookUserInfoModel" data-toggle="modal"><%= user.username %> </a></span>
                     </div>
                 </div>
                 <!--头部和图片部分结束-->
                 <div class="panel selected" id="panel-2" cmd="void">
                     <header id="panelHeader-2" class="panel_header">
-
                         <div id="panelLeftButton-2" class="btn btn_small btn_left btn_black contact_null_btn">
-
                         </div>
                         <h1 id="panelTitle-2" class="text_ellipsis padding_20">联系人</h1>
                         <!--搜索好友或者群组-->
                         <button id="panelRightButton-2" class="btn btn_small btn_right btn_black btn_search">
                             <span id="panelRightButtonText-2" class="btn_img"></span>
                         </button>
-
                     </header>
-
                     <div id="panelBodyWrapper-2" class="panel_body_container" style="top: 45px; ">
                         <div id="panelBody-contact" class="panel_body ">
                             <div id="contactList" class="tab tab_animate member_tab">
@@ -179,6 +175,7 @@
                                            value="******" disabled>
                                 </div>
                             </div>
+
                             <div class="form-group col-sm-6 ">
                                 <label for="inputPassword3" class="col-sm-4  control-label">用户手机号<span
                                             style="color:red;">*</span>:</label>
@@ -275,7 +272,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!--/span-->
+
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="control-label col-md-3">邮箱:</label>
@@ -358,6 +355,47 @@
     </div>
 </div>
 <!--查看用户详细信息的modal结束-->
+<!--修改用户的头像模态框开始-->
+<div class="modal fade" id="compileUserAvator" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a class="close" data-dismiss="modal">×</a>
+                <h5><%= user.username %>的头像</h5>
+            </div>
+            <div class="modal-body">
+                <form action="/upload/uploadAvator" method="post" enctype="multipart/form-data">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <img src="<%=userLogo.avatarUrl%>" width="40" height="40">
+                        </div>
+                        <div class="col-md-6">
+                            <input type="file" name="userAvator" id="userAvator">
+                            <input type="hidden" name="username" vlaue="<%= user.username %>">
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-12 modal-footer" style="text-align: center;">
+                            <div class="form-group col-sm-2 pull-right" style="text-align:right">
+                                <a href="#" class="btn btn-default" data-dismiss="modal">取消</a>
+                            </div>
+                            <div class="form-group col-sm-2 pull-right" style="text-align:right">
+                                <button type="submit"  id="compileUserAvatorBtn"
+                                                  class="btn btn-success">确定
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--修改用户的头像模态框结束-->
 <!--修改用户密码模态框开始-->
 <div class="modal fade" id="compile_password" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
@@ -439,8 +477,6 @@
                         </div>
                     </div>
                 </div>
-
-
             </div>
 
         </div>
@@ -605,6 +641,6 @@
 
 </script>
 <script src="/javascripts/hichat.js"></script>
-
+<script src="/javascripts/upload.js"></script>
 </body>
 </html>
