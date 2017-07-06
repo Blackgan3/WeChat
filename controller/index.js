@@ -6,9 +6,7 @@ var Message = require('../models/message.js');
 var FriendsList = require('../models/friendsList.js');
 var router = express();
 var ObjectID = require('mongodb').ObjectID;
-/* GET home page. */
 
-//首页
 router.get('/', function (req, res, next) {
     res.render('login');
 });
@@ -65,13 +63,10 @@ router.post('/reg', function (req, res, next) {
             }
         });
         ava.save();
-
     })
-
 });
 //进入登陆
 router.get('/login', function (req, res, next) {
-
     //取出所有的,显示
     res.render('login');
 });
@@ -99,11 +94,8 @@ router.post('/login', function (req, res, next) {
             //跳转到首页
             req.session.user = user;
             loginInfo.user = user;
-
-
             resolve();
         });
-
     });
     promise.then(function(){
         Avator.findOne({username:req.body.username},function(error,userLogo){
@@ -119,7 +111,6 @@ router.post('/login', function (req, res, next) {
             }
         });
     });
-
 });
 //保存修改后的用户信息
 router.post('/compileUserInfo', function (req, res, next) {
@@ -156,7 +147,6 @@ router.post('/modifyPassword', function (req, res, next) {
             res.send({status: 200, msg: "修改用户密码成功"});
         }
     });
-
 });
 //发消息，然后存入到数据库中
 router.post('/postmsg', function (req, res, next) {
@@ -270,8 +260,8 @@ router.post('/judgeFriend', function (req, res, next) {
             res.send({status: 200, msg: "当前用户还不是你的好友"});
         }
     })
-})
-module.exports = router;
+});
+
 
 
 //后台的一系列操作和跳转
@@ -390,3 +380,4 @@ router.post('/compileMsgDetail',function(req,res,next){
         }
     })
 });
+module.exports = router;
