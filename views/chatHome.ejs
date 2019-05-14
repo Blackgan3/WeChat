@@ -616,10 +616,9 @@
     }
     //点击提交修改用户密码
     function modifyPassword() {
-        if (!validateForms('#compilePasswordForm'))return false;
+        // if (!validateForms('#compilePasswordForm'))return false;
         var datas = $('#compilePasswordForm').serialize();
         datas += '&username=' + USERNAME;
-        console.log(datas);
         $.ajax({
             type: 'post',
             dataType: 'json',
@@ -627,8 +626,10 @@
             data: datas,
             success: function (data) {
                 if (data.status == 200) {
-                    alert('修改用户密码成功');
-                    $('#compile_password').modal('hide');
+                  alert('修改用户密码成功');
+                  $('#compile_password').modal('hide');
+                }else{
+                  alert(data.msg);
                 }
             },
             error: function (e) {

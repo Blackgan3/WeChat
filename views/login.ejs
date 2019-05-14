@@ -38,7 +38,7 @@
 		</div>
 		<div class="form-group row" style="text-align: center;">
 
-			<button type="submit" class="btn btn-primary">登陆</button>
+			<button type="submit" id="loginBtn" class="btn btn-primary">登陆</button>
 			<a href="/reg" class="btn btn-primary">注册</a>
 		</div>
 
@@ -60,6 +60,38 @@
             fade: 4000,
             duration: 6000
         });
+	</script>
+	<script>
+	  var loginBtn = document.getElementById('loginBtn');
+	  var username = document.getElementById('username');
+	  var password = document.getElementById('password');
+	  loginBtn.onclick = function(){
+	    if(!username.value || !password.value){
+	      alert('用户名和密码不能为空');
+	      return ;
+		}
+        $.ajax({
+          type: 'post',
+          dataType: 'json',
+          data: {
+            username: username.value,
+			password: password.value,
+		  },
+          url: '/login',
+          success: function (data) {
+            if (data.status !== 200) {
+              alert(data.msg);
+              window.location.href = '/';
+            } else {
+              console.log('登陆成功')
+            }
+          },
+          error: function (e) {
+            // alert("");
+          },
+        })
+	  }
+
 	</script>
 </body>
 </html>

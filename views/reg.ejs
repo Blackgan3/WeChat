@@ -20,7 +20,7 @@
 
 
   <div class="reg-box col-sm-4 col-sm-offset-3" style="margin-top:12%;">
-    <form class="form-horizontal" method="post" action="/reg">
+    <form class="form-horizontal">
       <fieldset>
         <div class="col-sm-12" style="text-align: center;font-size: 18px;">新用户注册</div>
 
@@ -42,9 +42,9 @@
             <input type="password" class="form-control" id="repassword" name="repassword" placeholder="请再次输入密码">
           </div>
         </div>
-        <div class="form-group" >
+        <div class="form-group">
           <div class="col-sm-offset-1 col-sm-10" style="text-align: center;">
-            <button type="submit" class="btn btn-primary">注册</button>
+            <button  id="regBtn" class="btn btn-primary">注册</button>
             <a href="/login" type="button" class="btn btn-primary">登录</a>
           </div>
         </div>
@@ -63,5 +63,49 @@
           duration: 6000
       });
   </script>
+  <script>
+    var regBtn = document.getElementById('regBtn');
+    var username = document.getElementById('username');
+    var password = document.getElementById('password');
+    var repassword = document.getElementById('repassword');
+
+    regBtn.onclick = function(){
+
+      if(!username.value || !password.value || !repassword.value){
+        alert('用户名和密码不能为空');
+        return ;
+      }
+      if(password.value !== repassword.value){
+        alert('两次输入数码需相同');
+        return ;
+      }
+      $.ajax({
+        type: 'post',
+        dataType: 'json',
+        data: {
+          username: username.value,
+          password: password.value,
+          repassword: repassword.value
+        },
+        url: '/reg',
+        success: function (data) {
+          if (data.status === 400) {
+            alert(data.msg);
+            window.location.href = '/reg';
+          } else {
+            alert(data.msg);
+            window.location.href = '/';
+          }
+        },
+        error: function (e) {
+          console.log(e)
+          alert("请求失败");
+          window.location.href = '/reg';
+        },
+      })
+    }
+
+  </script>
+
 </body>
 </html>

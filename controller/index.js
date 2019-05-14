@@ -31,11 +31,17 @@ router.post('/reg', function (req, res, next) {
         } else if (req.body.password !== req.body.repassword) {
             error = "两次密码输入不一致";
         }
-        if (error) {
+      
+      if (error) {
             //将错误存入session
-            req.session.error = error;
+          req.session.error = error;
+          res.send({
+            status: 400,
+            msg: error,
+          });
+          return ;
             //回到注册页面
-            return res.redirect('/reg');
+            // return res.redirect('/reg');
         }
         //用户名可以用
         var user = new User({
@@ -54,12 +60,19 @@ router.post('/reg', function (req, res, next) {
         user.save(function (error) {
             if (!error) {
                 req.session.success = '注册成功';
-                console.log("注册成功");
-                return res.redirect('/');
+                res.send({
+                  status: 200,
+                  msg: "注册成功",
+                });
+                return ;
             } else {
                 req.session.error = "注册失败";
-                console.log("注册失败");
-                return res.redirect('/reg');
+                res.send({
+                  status: 400,
+                  msg: "注册失败",
+                });
+                return ;
+                // return res.redirect('/reg');
             }
         });
         ava.save();
@@ -86,9 +99,14 @@ router.post('/login', function (req, res, next) {
                 error = "对不起，该账号已被禁止使用"
             }
             if (error) {
-                req.session.error = error;
-                //跳转路由
-                return res.redirect('/login');
+              req.session.error = error;
+              res.send({
+                status: 400,
+                msg: error,
+              });
+              return ;
+              //跳转路由
+              //   return res.redirect('/login');
             }
             req.session.success = '登录成功';
             //跳转到首页
@@ -98,10 +116,10 @@ router.post('/login', function (req, res, next) {
         });
     });
     promise.then(function(){
-        Avator.findOne({username:req.body.username},function(error,userLogo){
+      Avator.findOne({username:req.body.username},function(error,userLogo){
             loginInfo.userLogo = userLogo;
             console.log('Hi!');
-            console.log(loginInfo);
+            // console.log(loginInfo);
             // return false;
             if (loginInfo.user.username === 'weChatAdmin') {
                 //如果是管理员登录,就登录到管理员界面
@@ -139,7 +157,15 @@ router.post('/compileUserInfo', function (req, res, next) {
 //进行保存修改密码的操作
 router.post('/modifyPassword', function (req, res, next) {
     var newPassword = req.body.newPassword,
+        oldPassword = req.body.oldPassword,
         username = req.body.username;
+    var nowUser = User.findOne({username: username}, function (error, user) {
+      return user;
+    });
+    if(nowUser.password != oldPassword){
+      res.send({status: 8000, msg: "原密码输入不正确"});
+      return;
+    }
     User.update({username: username}, {$set: {password: newPassword}}, function (err, result) {
         if (err) {
             res.send({status: 8000, msg: "修改用户密码失败"});
