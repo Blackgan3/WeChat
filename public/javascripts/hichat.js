@@ -165,6 +165,46 @@ HiChat.prototype = {
                 return;
             };
         }, false);
+        
+        document.getElementById('messageInput').addEventListener('keydown',function(){
+            if(event.keyCode === 13){
+              var messageInput = document.getElementById('messageInput'),
+                msg = that._showEmoji(messageInput.value),
+                color = document.getElementById('colorStyle').value;
+              messageInput.value = '';
+              messageInput.focus();
+              if (msg.trim().length != 0) {
+                //将发送的信息存入数据库
+                console.log(sayto);
+                $.ajax({
+                  type:'post',
+                  dataType:'json',
+                  url:'/postMsg',
+                  data:{
+                    username:USERNAME,
+                    msg  :msg,
+                    sayto:sayto,
+                  },
+                  success:function(data){
+                    if(chatType == 'group'){
+                      //驱动其他用户进行消息渲染
+                      that.socket.emit('postGroupMsg', msg, color,USERNAME,sayto);
+                      //本页面进行消息渲染
+                      that._displayGroupNewMsg(USERNAME, color,sayto);
+                    }else{
+                      that.socket.emit('postMsg', msg, color,USERNAME,sayto);
+                      that._displayNewMsg(USERNAME, color,sayto);
+          
+                    }
+                  },
+                  error:  function(e){
+                    alert(e);
+                  }
+                });
+                return;
+              };
+            }
+        }, false);
        //进行绑定keyup事件，判断是否为enter事件
         /* document.getElementById('messageInput').addEventListener('keyup', function(e) {
             var messageInput = document.getElementById('messageInput'),
@@ -279,7 +319,8 @@ HiChat.prototype = {
                     that._groupChat(target.innerHTML,USERNAME);
                 }
             }
-        })
+        });
+        
     },
     //初始化表情面板中的所有表情
     _initialEmoji: function() {

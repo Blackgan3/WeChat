@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="612ff6cc-8877-4969-943c-88363a85232d" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/public/javascripts/hichat.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/javascripts/hichat.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/chatHome.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/chatHome.ejs" afterDir="false" />
     </list>
     <list id="43a6488b-ed5f-469d-872e-60e6d4c55237" name="Rejected commit: Default" comment="" />
@@ -26,8 +27,8 @@
       <file leaf-file-name="chatHome.ejs" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/views/chatHome.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="167">
-              <caret line="128" column="54" lean-forward="true" selection-start-line="128" selection-start-column="54" selection-end-line="128" selection-end-column="54" />
+            <state relative-caret-position="340">
+              <caret line="138" column="31" lean-forward="true" selection-start-line="138" selection-start-column="31" selection-end-line="138" selection-end-column="31" />
               <folding>
                 <element signature="n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" />
                 <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -42,6 +43,45 @@
                 <element signature="e#27936#28209#0#HTML" />
                 <element signature="e#28261#29788#0#HTML" />
                 <element signature="e#29943#30657#0#HTML" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="hichat.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/javascripts/hichat.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="251">
+              <caret line="172" column="68" lean-forward="true" selection-start-line="172" selection-start-column="68" selection-end-line="172" selection-end-column="68" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+                <element signature="e#534#673#0" />
+                <element signature="e#749#1016#0" />
+                <element signature="e#1066#1367#0" />
+                <element signature="e#1454#1716#0" />
+                <element signature="e#1805#2138#0" />
+                <element signature="e#2233#2344#0" />
+                <element signature="e#2423#2484#0" />
+                <element signature="e#2551#2595#0" />
+                <element signature="e#2683#3219#0" />
+                <element signature="e#3315#3454#0" />
+                <element signature="e#3549#4214#0" />
+                <element signature="e#4298#4386#0" />
+                <element signature="e#6845#7619#0" />
+                <element signature="e#11201#11639#0" />
+                <element signature="e#11714#12957#0" />
+                <element signature="e#13031#14212#0" />
+                <element signature="e#14288#14842#0" />
+                <element signature="e#14874#15473#0" />
+                <element signature="e#15515#15901#0" />
+                <element signature="e#15946#16204#0" />
+                <element signature="n#style#0;n#li#0;n#!!top" expanded="true" />
+                <element signature="e#16256#16505#0" />
+                <element signature="e#16553#16801#0" />
+                <element signature="n#style#0;n#li#0;n#!!top" expanded="true" />
+                <element signature="e#16861#17043#0" />
+                <element signature="e#17101#17264#0" />
+                <element signature="e#17298#17650#0" />
               </folding>
             </state>
           </provider>
@@ -110,15 +150,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="message.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/models/message.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="11" column="54" lean-forward="true" selection-start-line="11" selection-start-column="54" selection-end-line="11" selection-end-column="54" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="user.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models/user.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -139,12 +170,9 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>deleteMsg</find>
-      <find>compileMsg</find>
       <find>compile</find>
       <find>lookMsgDetail</find>
       <find>_zd</find>
-      <find>sendBtn</find>
       <find>emojiwrapper</find>
       <find>添加</find>
       <find>_initialEmoji</find>
@@ -169,6 +197,9 @@
       <find>图片</find>
       <find>sendImage</find>
       <find>messageInput</find>
+      <find>send</find>
+      <find>sendBtn</find>
+      <find>hichat</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$</dir>
@@ -185,7 +216,6 @@
         <option value="$PROJECT_DIR$/public/javascripts/adminMsgList.js" />
         <option value="$PROJECT_DIR$/models/message.js" />
         <option value="$PROJECT_DIR$/server.js" />
-        <option value="$PROJECT_DIR$/public/javascripts/hichat.js" />
         <option value="$PROJECT_DIR$/public/stylesheets/main.css" />
         <option value="$PROJECT_DIR$/public/javascripts/adminFriList.js" />
         <option value="$PROJECT_DIR$/routes/index.js" />
@@ -201,6 +231,7 @@
         <option value="$PROJECT_DIR$/views/adminHome.ejs" />
         <option value="$PROJECT_DIR$/views/adminMsgList.ejs" />
         <option value="$PROJECT_DIR$/views/chatHome.ejs" />
+        <option value="$PROJECT_DIR$/public/javascripts/hichat.js" />
       </list>
     </option>
   </component>
@@ -237,16 +268,6 @@
             <path>
               <item name="WeChat" type="b2602c69:ProjectViewProjectNode" />
               <item name="WeChat" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="WeChat" type="b2602c69:ProjectViewProjectNode" />
-              <item name="WeChat" type="462c0819:PsiDirectoryNode" />
-              <item name="controller" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="WeChat" type="b2602c69:ProjectViewProjectNode" />
-              <item name="WeChat" type="462c0819:PsiDirectoryNode" />
-              <item name="models" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="WeChat" type="b2602c69:ProjectViewProjectNode" />
@@ -359,12 +380,12 @@
       <workItem from="1557757352149" duration="4823000" />
       <workItem from="1557799358579" duration="13432000" />
       <workItem from="1557830474708" duration="2156000" />
-      <workItem from="1557834021647" duration="894000" />
+      <workItem from="1557834021647" duration="3433000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="117789000" />
+    <option name="totallyTimeSpent" value="120328000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -380,12 +401,12 @@
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.34123224" side_tool="true" visible="true" weight="0.253125" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.342812" side_tool="true" visible="true" weight="0.1375" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.5423907" weight="0.39194915" />
       <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.48815167" weight="0.41949153" />
-      <window_info id="npm" order="2" sideWeight="0.32496512" side_tool="true" visible="true" weight="0.19589257" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="9" sideWeight="0.65876776" visible="true" weight="0.253125" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6750349" visible="true" weight="0.19589257" />
+      <window_info id="npm" order="2" sideWeight="0.19927536" side_tool="true" visible="true" weight="0.19589257" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" sideWeight="0.657188" visible="true" weight="0.1375" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.8007246" visible="true" weight="0.19589257" />
       <window_info anchor="bottom" id="Statistic" order="7" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -438,7 +459,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="1" />
+      <option name="time" value="2" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -545,13 +566,6 @@
     <entry file="file://$PROJECT_DIR$/public/javascripts/form.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1550" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/javascripts/hichat.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7770">
-          <caret line="314" column="159" selection-start-line="314" selection-start-column="148" selection-end-line="314" selection-end-column="159" />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/stylesheets/main.css">
@@ -699,10 +713,47 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/public/javascripts/hichat.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="251">
+          <caret line="172" column="68" lean-forward="true" selection-start-line="172" selection-start-column="68" selection-end-line="172" selection-end-column="68" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#534#673#0" />
+            <element signature="e#749#1016#0" />
+            <element signature="e#1066#1367#0" />
+            <element signature="e#1454#1716#0" />
+            <element signature="e#1805#2138#0" />
+            <element signature="e#2233#2344#0" />
+            <element signature="e#2423#2484#0" />
+            <element signature="e#2551#2595#0" />
+            <element signature="e#2683#3219#0" />
+            <element signature="e#3315#3454#0" />
+            <element signature="e#3549#4214#0" />
+            <element signature="e#4298#4386#0" />
+            <element signature="e#6845#7619#0" />
+            <element signature="e#11201#11639#0" />
+            <element signature="e#11714#12957#0" />
+            <element signature="e#13031#14212#0" />
+            <element signature="e#14288#14842#0" />
+            <element signature="e#14874#15473#0" />
+            <element signature="e#15515#15901#0" />
+            <element signature="e#15946#16204#0" />
+            <element signature="n#style#0;n#li#0;n#!!top" expanded="true" />
+            <element signature="e#16256#16505#0" />
+            <element signature="e#16553#16801#0" />
+            <element signature="n#style#0;n#li#0;n#!!top" expanded="true" />
+            <element signature="e#16861#17043#0" />
+            <element signature="e#17101#17264#0" />
+            <element signature="e#17298#17650#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/views/chatHome.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="128" column="54" lean-forward="true" selection-start-line="128" selection-start-column="54" selection-end-line="128" selection-end-column="54" />
+        <state relative-caret-position="340">
+          <caret line="138" column="31" lean-forward="true" selection-start-line="138" selection-start-column="31" selection-end-line="138" selection-end-column="31" />
           <folding>
             <element signature="n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" />
             <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
