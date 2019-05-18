@@ -43,6 +43,24 @@
           </div>
         </div>
         <div class="form-group">
+          <label for="password" class="control-label col-sm-4">验证码</label>
+          <div class="col-sm-4">
+            <input  class="form-control" id="verifyCode" name="code" placeholder="请输入验证码">
+          </div>
+          <div class="col-sm-3">
+            <div
+                    style="    background: white;
+                                color: black;
+                                font-size: 18px;
+                                text-align: center;
+                                height: 33px;
+                                line-height: 33px;" id="code">
+
+            </div>
+          </div>
+
+        </div>
+        <div class="form-group">
           <div class="col-sm-offset-1 col-sm-10" style="text-align: center;">
             <button  id="regBtn" class="btn btn-primary">注册</button>
             <a href="/login" type="button" class="btn btn-primary">登录</a>
@@ -64,10 +82,35 @@
       });
   </script>
   <script>
+      var code;
+      function createCode(){
+          //首先默认code为空字符串
+          code = '';
+          //设置长度，这里看需求，我这里设置了4
+          var codeLength = 4;
+          var codeV = document.getElementById('code');
+          //设置随机字符
+          var random = new Array(0,1,2,3,4,5,6,7,8,9,'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R', 'S','T','U','V','W','X','Y','Z');
+          //循环codeLength 我设置的4就是循环4次
+          for(var i = 0; i < codeLength; i++){
+              //设置随机数范围,这设置为0 ~ 36
+              var index = Math.floor(Math.random()*36);
+              //字符串拼接 将每次随机的字符 进行拼接
+              code += random[index];
+          }
+          //将拼接好的字符串赋值给展示的Value
+          codeV.innerText = code;
+      }
+      createCode()
+
+  </script>
+  <script>
     var regBtn = document.getElementById('regBtn');
     var username = document.getElementById('username');
     var password = document.getElementById('password');
     var repassword = document.getElementById('repassword');
+    var verifyCode = document.getElementById('verifyCode');
+
 
     regBtn.onclick = function(){
 
@@ -75,10 +118,20 @@
         alert('用户名和密码不能为空');
         return ;
       }
+
       if(password.value !== repassword.value){
         alert('两次输入数码需相同');
         return ;
       }
+      if(!verifyCode.value){
+          alert('请输入验证码');
+          return;
+      }
+      if(verifyCode.value !==code){
+          alert('请输入正确的验证码');
+          return;
+      }
+
       $.ajax({
         type: 'post',
         dataType: 'json',

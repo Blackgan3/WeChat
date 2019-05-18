@@ -18,11 +18,12 @@
 	</style>
 </head>
 <body class="hold-transition login-page">
+<div style="color: red;font-size: 20px;text-align: center;width: 100%;margin-top: 40px;"><%= error %></div>
+
 
 
 <div class="login-box col-sm-4 col-sm-offset-4">
-
-<form class="form-horizontal" method="post" action="/login">
+<form class="form-horizontal" method="post" action="/loginSubmit">
 
 		<div class="form-group row" style="margin-top: 40px; color: white;" >
 			<label for="username" class="control-label col-sm-4" >用户名</label>
@@ -37,7 +38,6 @@
     		</div>
 		</div>
 		<div class="form-group row" style="text-align: center;">
-
 			<button type="submit" id="loginBtn" class="btn btn-primary">登陆</button>
 			<a href="/reg" class="btn btn-primary">注册</a>
 		</div>
@@ -65,32 +65,32 @@
 	  var loginBtn = document.getElementById('loginBtn');
 	  var username = document.getElementById('username');
 	  var password = document.getElementById('password');
-	  loginBtn.onclick = function(){
-	    if(!username.value || !password.value){
-	      alert('用户名和密码不能为空');
-	      return ;
-		}
-        $.ajax({
-          type: 'post',
-          dataType: 'json',
-          data: {
-            username: username.value,
-			password: password.value,
-		  },
-          url: '/login',
-          success: function (data) {
-            if (data.status !== 200) {
-              alert(data.msg);
-              window.location.href = '/';
-            } else {
-              console.log('登陆成功')
-            }
-          },
-          error: function (e) {
-            // alert("");
-          },
-        })
-	  }
+	  // loginBtn.onclick = function(){
+	  //   if(!username.value || !password.value){
+	  //     alert('用户名和密码不能为空');
+	  //     return ;
+		// }
+       //  $.ajax({
+       //    type: 'post',
+       //    dataType: 'json',
+       //    data: {
+       //      username: username.value,
+		// 	password: password.value,
+		//   },
+       //    url: '/login',
+       //    success: function (data) {
+       //      if (data.status !== 200) {
+       //        alert(data.msg);
+       //        window.location.href = '/';
+       //      } else {
+       //        console.log('登陆成功')
+       //      }
+       //    },
+       //    error: function (e) {
+       //      // alert("");
+       //    },
+       //  })
+	  // }
 
 	</script>
 </body>

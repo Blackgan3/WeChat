@@ -8,15 +8,16 @@ var router = express();
 var ObjectID = require('mongodb').ObjectID;
 
 router.get('/', function (req, res, next) {
-    res.render('login');
+    res.render('login',{error: ''});
 });
 
 //进入主页
 router.get('/chatHome', function (req, res, next) {
+    // console.log(this);
     res.render('chatHome');
 });
 
-//进入注册页面
+//进入注册页面ƒ
 router.get('/reg', function (req, res, next) {
     res.render('reg', {status: 'reg'});
 });
@@ -81,14 +82,18 @@ router.post('/reg', function (req, res, next) {
 //进入登陆
 router.get('/login', function (req, res, next) {
     //取出所有的,显示
-    res.render('login');
+    res.render('login',{error:''});
+});
+//进入管理员登陆
+router.get('/adminLogin', function (req, res, next) {
+    //取出所有的,显示
+    res.render('adminLogin',{error:''});
 });
 //登录操作
-router.post('/login', function (req, res, next) {
+router.post('/loginSubmit', function (req, res, next) {
     //判断用户名是否存在
     var loginInfo = {};
     var promise = new Promise(function(resolve, reject) {
-        console.log('Promise');
         User.findOne({username: req.body.username}, function (error, user) {
             if (!user) {
                 //用户名不存在
@@ -100,10 +105,8 @@ router.post('/login', function (req, res, next) {
             }
             if (error) {
               req.session.error = error;
-              res.send({
-                status: 400,
-                msg: error,
-              });
+    
+              res.render('login', {error: error});
               return ;
               //跳转路由
               //   return res.redirect('/login');
@@ -130,6 +133,46 @@ router.post('/login', function (req, res, next) {
         });
     });
 });
+
+router.post('/adminloginSubmit', function (req, res, next) {
+    //判断用户名是否存在
+    var loginInfo = {};
+    var promise = new Promise(function(resolve, reject) {
+        User.findOne({username: req.body.username}, function (error, user) {
+            if (!user) {
+                //用户名不存在
+                error = "用户名不存在,请先去注册";
+            } else if (req.body.password !== user.password) {
+                error = "密码输入错误";
+            } else if (user.disabled == true) {
+                error = "对不起，该账号已被禁止使用"
+            }
+            if (user.username !== 'weChatAdmin') {
+                //如果是管理员登录,就登录到管理员界面
+                error = "管理员账号不存在";
+            }
+            if (error) {
+                req.session.error = error;
+                
+                res.render('adminLogin', {error: error});
+                reject()
+                return ;
+                //跳转路由
+                //   return res.redirect('/login');
+            }
+            loginInfo.user = user;
+    
+            resolve();
+        });
+    });
+    promise.then(function(){
+        Avator.findOne({username:req.body.username},function(error,userLogo){
+            loginInfo.userLogo = userLogo;
+            res.render('adminHome', loginInfo);
+        });
+    });
+});
+
 //保存修改后的用户信息
 router.post('/compileUserInfo', function (req, res, next) {
     var username = req.body.username;
@@ -363,6 +406,16 @@ router.post('/disabledUser', function (req, res, next) {
             res.send({status: 8000, msg: "禁止该用户失败"});
         } else {
             res.send({status: 200, msg: "禁止该用户成功"});
+        }
+    });
+});
+router.post('/abledUser', function (req, res, next) {
+    var username = req.body.username;
+    User.update({username: username}, {$set: {disabled: false}}, function (err, result) {
+        if (err) {
+            res.send({status: 8000, msg: "启用该用户失败"});
+        } else {
+            res.send({status: 200, msg: "启用该用户成功"});
         }
     });
 });
