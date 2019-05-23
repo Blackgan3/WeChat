@@ -203,19 +203,21 @@ router.post('/modifyPassword', function (req, res, next) {
         oldPassword = req.body.oldPassword,
         username = req.body.username;
     var nowUser = User.findOne({username: username}, function (error, user) {
-      return user;
-    });
-    if(nowUser.password != oldPassword){
-      res.send({status: 8000, msg: "原密码输入不正确"});
-      return;
-    }
-    User.update({username: username}, {$set: {password: newPassword}}, function (err, result) {
-        if (err) {
-            res.send({status: 8000, msg: "修改用户密码失败"});
-        } else {
-            res.send({status: 200, msg: "修改用户密码成功"});
+        if(user.password != oldPassword){
+            res.send({status: 8000, msg: "原密码输入不正确"});
+            return;
         }
+        User.update({username: username}, {$set: {password: newPassword}}, function (err, result) {
+            if (err) {
+                res.send({status: 8000, msg: "修改用户密码失败"});
+            } else {
+                res.send({status: 200, msg: "修改用户密码成功"});
+            }
+        });
+        return user;
     });
+    
+    
 });
 //发消息，然后存入到数据库中
 router.post('/postmsg', function (req, res, next) {
