@@ -28,6 +28,6 @@
     "babel-cli": "^6.24.1",
     "babel-preset-latest": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
-    "mongoose": "^4.9.0"
+    "mongoose": "^5.7.7"
   }
 }
